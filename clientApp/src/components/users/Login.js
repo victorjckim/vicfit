@@ -1,6 +1,7 @@
 import React from "react";
 import LoginHtml from "./LoginHtml";
-import UserService from "../../services/UserService";
+import { connect } from "react-redux";
+import { loginUser } from "../redux/UserActions";
 
 class Login extends React.Component {
   constructor(props) {
@@ -66,11 +67,7 @@ class Login extends React.Component {
 
   onClick = () => {
     if (this.state.formValid) {
-      UserService.login(this.state.email, this.state.password)
-        .then(resp => console.log(resp))
-        .catch(err => console.error(err));
-      // console.log("Please put an axios call here");
-      // this.setState({ showErrors: false }, () => this.props.loginSuccess());
+      this.props.loginUserRequest(this.state.email, this.state.password);
     } else {
       this.setState({ showErrors: true });
     }
@@ -87,4 +84,23 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    user: state.UserReducer
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loginUserRequest: (userName, password) => {
+      dispatch(loginUser(userName, password))
+        .then(resp => console.log(resp))
+        .catch(err => console.error(err));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

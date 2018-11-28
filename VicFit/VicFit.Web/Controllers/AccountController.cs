@@ -337,7 +337,7 @@ namespace VicFit.Web.Controllers
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            return Ok(result);
         }
 
         // POST api/Account/RegisterExternal

@@ -1,5 +1,6 @@
 import React from "react";
 import LoginHtml from "./LoginHtml";
+import UserService from "../../services/UserService";
 
 class Login extends React.Component {
   constructor(props) {
@@ -37,10 +38,12 @@ class Login extends React.Component {
           : "Please enter a valid email address";
         break;
       case "password":
-        passwordValid = value.length > 5;
+        passwordValid = value.match(
+          /^(?=(.*[A-Z]){1,})(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{6,}$/
+        );
         fieldValidationErrors.password = passwordValid
           ? ""
-          : "Password must be a minimum of 6 characters";
+          : "Password must be a minimum of 6 characters with at least one uppercase letter, one lowercase letter, one number, and one special character";
         break;
       default:
         break;
@@ -63,8 +66,11 @@ class Login extends React.Component {
 
   onClick = () => {
     if (this.state.formValid) {
-      console.log("Please put an axios call here");
-      this.setState({ showErrors: false }, () => this.props.loginSuccess());
+      UserService.login(this.state.email, this.state.password)
+        .then(resp => console.log(resp))
+        .catch(err => console.error(err));
+      // console.log("Please put an axios call here");
+      // this.setState({ showErrors: false }, () => this.props.loginSuccess());
     } else {
       this.setState({ showErrors: true });
     }

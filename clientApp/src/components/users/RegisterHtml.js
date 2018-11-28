@@ -79,6 +79,15 @@ const RegisterHtml = props => {
                     isValid={props.passwordValid || !props.showErrors}
                     hintText="Password must be a minimum of 6 characters"
                   />
+                  <TextInput
+                    name="confirmPassword"
+                    type="password"
+                    label="Confirm Password"
+                    value={props.confirmPassword}
+                    onChange={props.onChange}
+                    isValid={props.confirmPasswordValid || !props.showErrors}
+                    hintText="Passwords must be identical"
+                  />
                   <button
                     type="button"
                     className="btn btn-primary btn-block mt-4"

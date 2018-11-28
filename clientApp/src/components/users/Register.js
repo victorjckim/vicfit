@@ -1,5 +1,6 @@
 import React from "react";
 import RegisterHtml from "./RegisterHtml";
+import UserService from "../../services/UserService";
 import "./Users.css";
 
 class Register extends React.Component {
@@ -9,14 +10,17 @@ class Register extends React.Component {
       name: "",
       email: "",
       password: "",
+      confirmPassword: "",
       formErrors: {
         name: "",
         email: "",
-        password: ""
+        password: "",
+        confirmPassword: ""
       },
       nameValid: false,
       emailValid: false,
       passwordValid: false,
+      confirmPasswordValid: false,
       showErrors: false
     };
   }
@@ -33,6 +37,7 @@ class Register extends React.Component {
     let nameValid = this.state.nameValid;
     let emailValid = this.state.emailValid;
     let passwordValid = this.state.passwordValid;
+    let confirmPasswordValid = this.state.confirmPasswordValid;
 
     switch (fieldName) {
       case "name":
@@ -46,10 +51,18 @@ class Register extends React.Component {
           : "Please enter a valid email address";
         break;
       case "password":
-        passwordValid = value.length > 5;
+        passwordValid = value.match(
+          /^(?=(.*[A-Z]){1,})(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{6,}$/
+        );
         fieldValidationErrors.password = passwordValid
           ? ""
-          : "Password must be a minimum of 6 characters";
+          : "Password must be a minimum of 6 characters with at least one uppercase letter, one lowercase letter, one number, and one special character";
+        break;
+      case "confirmPassword":
+        confirmPasswordValid = value.match(this.state.password);
+        fieldValidationErrors.confirmPassword = confirmPasswordValid
+          ? ""
+          : "Passwords must be identical";
         break;
       default:
         break;
@@ -59,7 +72,8 @@ class Register extends React.Component {
         formErrors: fieldValidationErrors,
         nameValid: nameValid,
         emailValid: emailValid,
-        passwordValid: passwordValid
+        passwordValid: passwordValid,
+        confirmPasswordValid: confirmPasswordValid
       },
       this.validateForm
     );
@@ -70,14 +84,20 @@ class Register extends React.Component {
       formValid:
         this.state.nameValid &&
         this.state.emailValid &&
-        this.state.passwordValid
+        this.state.passwordValid &&
+        this.state.confirmPasswordValid
     });
   }
 
   onClick = () => {
     if (this.state.formValid) {
-      console.log("Please put an axios call here");
       this.setState({ showErrors: false });
+      UserService.register(this.state)
+        .then(resp => {
+          console.log(resp);
+          this.props.history.push("/login");
+        })
+        .catch(err => console.error(err));
     } else {
       this.setState({ showErrors: true });
     }

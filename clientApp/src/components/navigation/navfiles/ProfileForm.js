@@ -6,9 +6,9 @@ import "./Profile.css";
 const ProfileForm = props => {
   const options = [
     { value: "", label: "Select..." },
-    { value: "lose", label: "Lose weight" },
-    { value: "gain", label: "Gain muscle" },
-    { value: "loseGain", label: "I'm a beginner, so give me both!" }
+    { value: 1, label: "Lose weight" },
+    { value: 2, label: "Gain muscle" },
+    { value: 3, label: "I'm a beginner, so give me both!" }
   ];
   const feet = [
     { name: "feet", value: "", label: "Select..." },
@@ -102,7 +102,7 @@ const ProfileForm = props => {
                   type="radio"
                   name="gender"
                   className="mr-1"
-                  value="male"
+                  value="M"
                   onChange={props.onChange}
                 />
                 Male
@@ -112,7 +112,7 @@ const ProfileForm = props => {
                   type="radio"
                   name="gender"
                   className="mr-1"
-                  value="female"
+                  value="F"
                   onChange={props.onChange}
                 />
                 Female
@@ -122,7 +122,7 @@ const ProfileForm = props => {
                   type="radio"
                   name="gender"
                   className="mr-1"
-                  value="other"
+                  value="O"
                   onChange={props.onChange}
                 />
                 Other

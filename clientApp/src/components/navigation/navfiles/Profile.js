@@ -1,5 +1,8 @@
 import React from "react";
 import ProfileForm from "./ProfileForm";
+import ProfileService from "../../../services/ProfileService";
+import { connect } from "react-redux";
+import { getId } from "../../redux/UserActions";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -35,14 +38,14 @@ class Profile extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.props.getUserId(this.props.user.userName);
+  }
+
   onChange = evt => {
     const key = evt.target.name;
     const val = evt.target.value;
-    this.setState(
-      { [key]: val },
-      () => console.log(this.state),
-      this.validateField(key, val)
-    );
+    this.setState({ [key]: val }, () => this.validateField(key, val));
   };
 
   validateField = (fieldName, value) => {
@@ -58,7 +61,7 @@ class Profile extends React.Component {
 
     switch (fieldName) {
       case "goal":
-        goalValid = !value.match(/""/g);
+        goalValid = value > 0;
         fieldValidationErrors.goal = goalValid ? "" : "Please select a goal";
         break;
       case "feet":
@@ -138,32 +141,48 @@ class Profile extends React.Component {
 
   onGoalChange = evt => {
     console.log(evt);
-    this.setState(
-      { goal: evt.value, selectedOption: evt },
-      () => console.log(this.state),
+    this.setState({ goal: evt.value, selectedOption: evt }, () =>
       this.validateField("goal", evt.value)
     );
   };
 
   onHeightChange = evt => {
     if (evt.name === "feet") {
-      this.setState(
-        { feet: evt.value },
-        () => console.log(this.state),
+      this.setState({ feet: evt.value }, () =>
         this.validateField("feet", evt.value)
       );
     } else {
-      this.setState(
-        { inches: evt.value },
-        () => console.log(this.state),
+      this.setState({ inches: evt.value }, () =>
         this.validateField("inches", evt.value)
       );
     }
   };
 
   submitProfile = () => {
+    const {
+      feet,
+      inches,
+      currentWeight,
+      goalWeight,
+      age,
+      gender,
+      goal,
+      active
+    } = this.state;
     if (this.state.formValid) {
-      console.log("Please put an axios call here");
+      const height = feet * 12 + inches;
+      const profileData = {
+        height: height,
+        currentWeight: parseInt(currentWeight),
+        goalWeight: parseInt(goalWeight),
+        age: parseInt(age),
+        gender: gender,
+        goalId: goal,
+        activity: parseFloat(active),
+        userId: this.props.user.userId
+      };
+      const saveProfile = ProfileService.create(profileData);
+      console.log(saveProfile, profileData);
       this.setState({ showErrors: false }, () =>
         this.props.history.push("/dashboard")
       );
@@ -203,4 +222,25 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+const mapStateToProps = state => {
+  return {
+    user: state.UserReducer
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserId: email => {
+      dispatch(getId(email))
+        .then(resp => {
+          console.log(resp);
+        })
+        .catch(err => console.error(err));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile);

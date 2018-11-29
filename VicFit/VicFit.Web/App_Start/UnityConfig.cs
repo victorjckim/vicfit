@@ -28,9 +28,13 @@ namespace VicFit.Web
             container.RegisterType<IDataProvider, SqlDataProvider>(
                 new InjectionConstructor(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString));
 
-            container.RegisterType<IUserService, UserService>();
+            // for ASP.NET built-in controller
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
             container.RegisterType<AccountController>(new InjectionConstructor());
+
+            // register your interfaces here
+            container.RegisterType<IUserService, UserService>();
+            container.RegisterType<IProfileService, ProfileService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 

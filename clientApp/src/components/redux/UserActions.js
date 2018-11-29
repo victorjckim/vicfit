@@ -25,7 +25,7 @@ export function loginStatus(token) {
       .get(`/api/account/userinfo`, { headers: config })
       .then(resp => {
         if (sessionStorage.getItem("token") !== null) {
-          return true;
+          return resp.data;
         } else {
           return false;
         }
@@ -34,6 +34,18 @@ export function loginStatus(token) {
         console.error(err);
         return false;
       })
+  };
+}
+
+export function getId(email) {
+  return {
+    type: "GET_USER_ID",
+    payload: axios
+      .get(`/api/users/getid?email=${email}`, { withCredentials: true })
+      .then(resp => {
+        return resp;
+      })
+      .catch(err => console.error(err))
   };
 }
 

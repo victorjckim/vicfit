@@ -1,7 +1,6 @@
 const UserReducer = (
   state = {
-    isLoggedIn: false,
-    token: ""
+    isLoggedIn: false
   },
   action
 ) => {
@@ -9,8 +8,7 @@ const UserReducer = (
     case "LOGIN_USER_FULFILLED":
       state = {
         ...state,
-        isLoggedIn: true,
-        token: action.payload.access_token
+        isLoggedIn: true
       };
       break;
     case "CHECK_LOGIN_STATE_FULFILLED":

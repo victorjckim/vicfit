@@ -2,6 +2,7 @@ import React from "react";
 import LoginHtml from "./LoginHtml";
 import { connect } from "react-redux";
 import { loginUser } from "../redux/UserActions";
+import { withRouter } from "react-router-dom";
 
 class Login extends React.Component {
   constructor(props) {
@@ -94,13 +95,17 @@ const mapDispatchToProps = dispatch => {
   return {
     loginUserRequest: (userName, password) => {
       dispatch(loginUser(userName, password))
-        .then(resp => console.log(resp))
+        .then(resp => {
+          console.log(resp);
+        })
         .catch(err => console.error(err));
     }
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Login)
+);

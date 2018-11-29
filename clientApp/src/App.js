@@ -7,7 +7,8 @@ import { withRouter } from "react-router-dom";
 
 class App extends Component {
   componentDidMount() {
-    this.props.currentUser();
+    const token = sessionStorage.getItem("token");
+    this.props.currentUser(token);
   }
 
   render() {
@@ -27,8 +28,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    currentUser: () => {
-      dispatch(loginStatus())
+    currentUser: data => {
+      dispatch(loginStatus(data))
         .then(resp => console.log(resp))
         .catch(err => console.error(err));
     }

@@ -5,53 +5,23 @@ import { withRouter, Route, Switch } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Router from "../navigation/Router";
 import "./Layout.css";
+import { connect } from "react-redux";
 import NavBar from "./NavBar";
 
 class Layout extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: false
-    };
+  componentDidUpdate() {
+    if (
+      this.props.user.isLoggedIn &&
+      this.props.location.pathname === "/login"
+    ) {
+      this.props.history.push("/profile");
+    }
   }
-
-  loginSuccess = () => {
-    this.setState({ loggedIn: true }, () =>
-      this.props.history.push("/profile")
-    );
-  };
 
   render() {
     return (
       <React.Fragment>
-        {!this.state.loggedIn && (
-          <Route
-            render={({ location }) => (
-              <TransitionGroup>
-                <CSSTransition
-                  key={location.key}
-                  timeout={400}
-                  classNames="fade"
-                >
-                  <Switch location={location}>
-                    <Route
-                      exact
-                      path="/"
-                      render={props => <Register {...props} />}
-                    />
-                    <Route
-                      path="/login"
-                      render={props => (
-                        <Login {...props} loginSuccess={this.loginSuccess} />
-                      )}
-                    />
-                  </Switch>
-                </CSSTransition>
-              </TransitionGroup>
-            )}
-          />
-        )}
-        {this.state.loggedIn && (
+        {this.props.user.isLoggedIn && (
           <React.Fragment>
             <NavBar />
             <div
@@ -64,9 +34,33 @@ class Layout extends React.Component {
             </div>
           </React.Fragment>
         )}
+        {!this.props.user.isLoggedIn && (
+          <Route
+            render={({ location }) => (
+              <TransitionGroup>
+                <CSSTransition
+                  key={location.key}
+                  timeout={400}
+                  classNames="fade"
+                >
+                  <Switch location={location}>
+                    <Route exact path="/" component={Register} />
+                    <Route path="/login" component={Login} />
+                  </Switch>
+                </CSSTransition>
+              </TransitionGroup>
+            )}
+          />
+        )}
       </React.Fragment>
     );
   }
 }
 
-export default withRouter(Layout);
+const mapStateToProps = state => {
+  return {
+    user: state.UserReducer
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(Layout));

@@ -8,24 +8,27 @@ export function loginUser(userName, password) {
     payload: axios
       .post("/token", data, { headers: headers, withCredentials: true })
       .then(resp => {
+        sessionStorage.setItem("token", resp.data.access_token);
         return resp.data;
       })
       .catch(err => console.error(err))
   };
 }
 
-export function loginStatus() {
+export function loginStatus(token) {
   const config = {
-    Authorization:
-      "Bearer dlS2bb3MaeV-OABQ_NXboJmDwNRIMocqllx8fEVAty80BeQQDC7EChm1BDEblfeFa5GM5zSHTaEs7ZBNObDDRfO8HP0LDU_o_tdrouxklydtsKtupQPcgcJNotXTOqlJYOVcV6Rp_okMRtqp-TyZ6t8rOmb-_0Q5c6SBfI4ieKUQ9ar0iTWuyKH3BGs5rjA4B-PJXl6q3yB6VFK-o8HFPPvcZi-oKRUUYBSKY4R1cMCkEBLlPABxAg-MhU7GWoaazPItPrS2IC8vYoDLSReGYp85BfRnI9F-F8OWpxiFf_tJtK_goYWxbErVydN7eQNrOE9EYJ0UKsnF8ZERTeMCBd6tvyevHBWWMo7CoOt-ZVmQEaFAeBqIoVc6vlJPkCjLmp6fqnFHsytpJjrnF-3rAf2n5TDAEiCVTE7hxZfz05fcl73BzLrVvpQ8heUgoNFBa6t2MbYB1vcHNP9ruM6ZZNv2t9X08lzzMsl-6_pkuXs"
+    Authorization: `Bearer ${token}`
   };
   return {
     type: "CHECK_LOGIN_STATE",
     payload: axios
       .get(`/api/account/userinfo`, { headers: config })
       .then(resp => {
-        console.log(resp.data);
-        return resp.data;
+        if (sessionStorage.getItem("token") !== null) {
+          return true;
+        } else {
+          return false;
+        }
       })
       .catch(err => {
         console.error(err);

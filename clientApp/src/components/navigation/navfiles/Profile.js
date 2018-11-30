@@ -1,6 +1,7 @@
 import React from "react";
 import ProfileForm from "./ProfileForm";
 import ProfileService from "../../../services/ProfileService";
+import MacrosService from "../../../services/MacrosService";
 import { connect } from "react-redux";
 import { getId } from "../../redux/UserActions";
 
@@ -181,8 +182,11 @@ class Profile extends React.Component {
         activity: parseFloat(active),
         userId: this.props.user.userId
       };
-      const saveProfile = ProfileService.create(profileData);
-      console.log(saveProfile, profileData);
+      ProfileService.create(profileData)
+        .then(resp =>
+          MacrosService.create(this.props.user.userId, resp.data.Item)
+        )
+        .catch(err => console.error(err));
       this.setState({ showErrors: false }, () =>
         this.props.history.push("/dashboard")
       );

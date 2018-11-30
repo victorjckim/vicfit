@@ -271,6 +271,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MacrosApiController.cs" />
     <Compile Include="Controllers\ProfileApiController.cs" />
     <Compile Include="Controllers\UsersApiController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -278,20 +279,25 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IDataProvider.cs" />
+    <Compile Include="Interfaces\IMacrosService.cs" />
     <Compile Include="Interfaces\IProfileService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MacrosViewModel.cs" />
+    <Compile Include="Models\ProfileDomainModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Providers\SqlDataProvider.cs" />
+    <Compile Include="Requests\MacrosAddRequest.cs" />
     <Compile Include="Requests\ProfileAddRequest.cs" />
     <Compile Include="Responses\BaseResponse.cs" />
     <Compile Include="Responses\ItemResponse.cs" />
     <Compile Include="Responses\ItemsResponse.cs" />
     <Compile Include="Responses\SuccessResponse.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Services\MacrosService.cs" />
     <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />

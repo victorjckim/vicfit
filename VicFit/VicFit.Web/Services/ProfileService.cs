@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using VicFit.Web.Interfaces;
+using VicFit.Web.Models;
 using VicFit.Web.Requests;
 
 namespace VicFit.Web.Services
@@ -45,6 +46,39 @@ namespace VicFit.Web.Services
                     id = (int)paramList["@Id"].Value;
                 });
             return id;
+        }
+
+        public ProfileDomainModel SelectByUserId(string userId)
+        {
+            ProfileDomainModel model = null;
+            _dataProvider.ExecuteCmd(
+                "Profile_SelectByUserId",
+                inputParamMapper : delegate(SqlParameterCollection paramList)
+                {
+                    paramList.AddWithValue("@UserId", userId);
+                },
+                singleRecordMapper : delegate(IDataReader reader, short set)
+                {
+                    int idx = 0;
+                    model = MapProfile(reader, idx);
+                    idx++;
+                });
+            return model;
+        }
+
+        public static ProfileDomainModel MapProfile(IDataReader reader, int index)
+        {
+            ProfileDomainModel model = new ProfileDomainModel();
+            model.Id = reader.GetInt32(index++);
+            model.Height = reader.GetInt32(index++);
+            model.CurrentWeight = reader.GetInt32(index++);
+            model.GoalWeight = reader.GetInt32(index++);
+            model.Age = reader.GetInt32(index++);
+            model.Gender = reader.GetString(index++);
+            model.GoalId = reader.GetInt32(index++);
+            model.Activity = reader.GetDecimal(index++);
+            model.UserId = reader.GetString(index++);
+            return model;
         }
     }
 }

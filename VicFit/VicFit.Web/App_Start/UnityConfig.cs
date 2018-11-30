@@ -35,6 +35,7 @@ namespace VicFit.Web
             // register your interfaces here
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<IProfileService, ProfileService>();
+            container.RegisterType<IMacrosService, MacrosService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 

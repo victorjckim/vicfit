@@ -22,7 +22,7 @@ namespace VicFit.Web.Controllers
         }
 
         [HttpPost]
-        [Route]
+        [Route("")]
         public HttpResponseMessage Create(ProfileAddRequest model)
         {
             try

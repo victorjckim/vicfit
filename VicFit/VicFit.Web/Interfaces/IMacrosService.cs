@@ -8,9 +8,9 @@ using VicFit.Web.Requests;
 
 namespace VicFit.Web.Interfaces
 {
-    public interface IProfileService
+    public interface IMacrosService
     {
-        int Create(ProfileAddRequest model);
-        ProfileDomainModel SelectByUserId(string userId);
+        int Create(string userId, int profileId);
+        MacrosViewModel SelectMacrosByUserId(string userId);
     }
 }

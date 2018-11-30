@@ -1,6 +1,7 @@
 import React from "react";
 
 const DashboardHtml = props => {
+  console.log(props);
   return (
     <div className="col-lg-8 offset-lg-2">
       <div
@@ -22,7 +23,10 @@ const DashboardHtml = props => {
               style={{ position: "relative", bottom: "1px" }}
             >
               <font style={{ fontSize: "18pt", color: "maroon" }}>
-                Calories: # HERE
+                Calories Left:{" "}
+                {props.macros.Calories === ""
+                  ? "Waiting..."
+                  : props.macros.Calories}
               </font>
             </div>
             <div className="col-md-3 offset-lg-1 mt-4">

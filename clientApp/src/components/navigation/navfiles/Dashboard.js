@@ -6,14 +6,21 @@ import { getId, getMacros } from "../../redux/UserActions";
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      macros: {
+        Calories: ""
+      }
+    };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     if (this.props.user.userId === "") {
-      this.props.getUserId(this.props.user.userName);
+      await this.props.getUserId(this.props.user.userName);
+      this.setState({ macros: this.props.user.macros }, () =>
+        console.log(this.state)
+      );
     } else {
-      this.props.getMacros(this.props.user.userId);
+      await this.props.userMacros(this.props.user.userId);
     }
   }
 
@@ -46,13 +53,18 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserId: email => {
-      dispatch(getId(email))
-        .then(resp => {
-          dispatch(getMacros(resp.value.data.Item))
+    getUserId: async email => {
+      await dispatch(getId(email))
+        .then(async resp => {
+          await dispatch(getMacros(resp.value.data.Item))
             .then(resp => console.log(resp))
             .catch(err => console.error(err));
         })
+        .catch(err => console.error(err));
+    },
+    userMacros: userId => {
+      dispatch(getMacros(userId))
+        .then(resp => console.log(resp))
         .catch(err => console.error(err));
     }
   };

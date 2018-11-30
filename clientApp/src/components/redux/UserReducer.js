@@ -33,6 +33,12 @@ const UserReducer = (
         userId: action.payload.data.Item
       };
       break;
+    case "GET_USER_MACROS_FULFILLED":
+      state = {
+        ...state,
+        macros: action.payload.Item
+      };
+      break;
     default:
       return state;
   }

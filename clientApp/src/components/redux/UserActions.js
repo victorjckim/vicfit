@@ -49,6 +49,18 @@ export function getId(email) {
   };
 }
 
+export function getMacros(userId) {
+  return {
+    type: "GET_USER_MACROS",
+    payload: axios
+      .get(`/api/macros/${userId}`, { withCredentials: true })
+      .then(resp => {
+        return resp.data;
+      })
+      .catch(err => console.error(err))
+  };
+}
+
 // content type header and bearer w/ token
 export function logoutUser() {
   return {

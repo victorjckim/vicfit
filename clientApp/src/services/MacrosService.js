@@ -9,14 +9,6 @@ class MacrosService {
     axios.defaults.withCredentials = true;
     return axios(url, config);
   }
-  static getMacros(userId) {
-    const url = `/api/macros/${userId}`;
-    const config = {
-      method: "GET"
-    };
-    axios.defaults.withCredentials = true;
-    return axios(url, config);
-  }
 }
 
 export default MacrosService;

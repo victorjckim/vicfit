@@ -1,8 +1,7 @@
 import React from "react";
 import DashboardHtml from "./DashboardHtml";
-import MacrosService from "../../../services/MacrosService";
 import { connect } from "react-redux";
-import { getId } from "../../redux/UserActions";
+import { getId, getMacros } from "../../redux/UserActions";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -13,10 +12,9 @@ class Dashboard extends React.Component {
   componentDidMount() {
     if (this.props.user.userId === "") {
       this.props.getUserId(this.props.user.userName);
-    } else
-      MacrosService.getMacros(this.props.user.userId)
-        .then(resp => console.log(resp))
-        .catch(err => console.error(err));
+    } else {
+      this.props.getMacros(this.props.user.userId);
+    }
   }
 
   addRequest = () => {
@@ -31,6 +29,7 @@ class Dashboard extends React.Component {
     return (
       <React.Fragment>
         <DashboardHtml
+          {...this.state}
           addRequest={this.addRequest}
           exerciseRequest={this.exerciseRequest}
         />
@@ -50,10 +49,8 @@ const mapDispatchToProps = dispatch => {
     getUserId: email => {
       dispatch(getId(email))
         .then(resp => {
-          MacrosService.getMacros(resp.value.data.Item)
-            .then(resp =>
-              this.setState(resp.data.Item, () => console.log(this.state))
-            )
+          dispatch(getMacros(resp.value.data.Item))
+            .then(resp => console.log(resp))
             .catch(err => console.error(err));
         })
         .catch(err => console.error(err));

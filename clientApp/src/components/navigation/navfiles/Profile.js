@@ -237,9 +237,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getUserId: email => {
       dispatch(getId(email))
-        .then(resp => {
-          console.log(resp);
-        })
+        .then(resp => console.log(resp))
         .catch(err => console.error(err));
     }
   };

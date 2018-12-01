@@ -87,40 +87,26 @@ const FoodHtml = props => {
                 <tr className="total" style={{ borderTop: "4px solid" }}>
                   <td className="first">Totals</td>
                   {/* Totals calculated from the foods eaten that day */}
-                  <td>
-                    {props.total.TotalCalories === ""
-                      ? ""
-                      : props.total.TotalCalories}
-                  </td>
-                  <td>
-                    {props.total.TotalCarbs === ""
-                      ? ""
-                      : props.total.TotalCarbs}
-                  </td>
-                  <td>
-                    {props.total.TotalFats === "" ? "" : props.total.TotalFats}
-                  </td>
-                  <td>
-                    {props.total.TotalProteins === ""
-                      ? ""
-                      : props.total.TotalProteins}
-                  </td>
+                  <td>{props.total.TotalCalories}</td>
+                  <td>{props.total.TotalCarbs}</td>
+                  <td>{props.total.TotalFats}</td>
+                  <td>{props.total.TotalProteins}</td>
                 </tr>
                 <tr className="total">
                   {/* Daily Goal will come from the database */}
                   <td className="first">Daily Goal</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
+                  <td>{props.macros.Calories}</td>
+                  <td>{props.macros.Carbs}</td>
+                  <td>{props.macros.Fats}</td>
+                  <td>{props.macros.Proteins}</td>
                 </tr>
                 <tr className="total">
                   {/* Remaining will be calculated from the foods on that specific day*/}
                   <td className="first">Remaining</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
+                  <td>{props.macros.Calories - props.total.TotalCalories}</td>
+                  <td>{props.macros.Carbs - props.total.TotalCarbs}</td>
+                  <td>{props.macros.Fats - props.total.TotalFats}</td>
+                  <td>{props.macros.Proteins - props.total.TotalProteins}</td>
                 </tr>
               </tbody>
             </table>

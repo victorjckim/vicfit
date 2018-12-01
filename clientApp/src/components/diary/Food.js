@@ -2,6 +2,7 @@ import React from "react";
 import FoodHtml from "./FoodHtml";
 import FoodService from "../../services/FoodService";
 import { connect } from "react-redux";
+import { getMacros } from "../redux/UserActions";
 
 class Food extends React.Component {
   constructor(props) {
@@ -13,21 +14,43 @@ class Food extends React.Component {
         TotalCarbs: "",
         TotalFats: "",
         TotalProteins: ""
+      },
+      macros: {
+        Calories: "",
+        Carbs: "",
+        Fats: "",
+        Proteins: ""
       }
     };
   }
 
   componentDidMount() {
-    this.setState({ loading: true });
+    if (this.props.user.userId === "") {
+      this.setState({ loading: true });
+    } else if (this.props.user.userId !== "") {
+      this.setState({ loading: false });
+    }
   }
 
   async componentDidUpdate() {
-    if (this.props.user.userId === "") {
-    } else {
+    if (
+      this.props.user.userId !== "" &&
+      this.state.total.TotalCalories === ""
+    ) {
       const dailyTotal = await FoodService.selectTotalByUserId(
         this.props.user.userId
       );
-      this.setState({ total: dailyTotal.data.Item, loading: false });
+      this.setState({ total: dailyTotal.data.Item, loading: false }, () =>
+        console.log(this.state)
+      );
+    } else if (
+      this.props.user.userId !== "" &&
+      this.state.macros.Calories === ""
+    ) {
+      await this.props.userMacros(this.props.user.userId);
+      this.setState({ macros: this.props.user.macros }, () =>
+        console.log(this.state)
+      );
     }
   }
 
@@ -60,4 +83,17 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Food);
+const mapDispatchToProps = dispatch => {
+  return {
+    userMacros: async userId => {
+      await dispatch(getMacros(userId))
+        .then(resp => console.log(resp))
+        .catch(err => console.error(err));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Food);

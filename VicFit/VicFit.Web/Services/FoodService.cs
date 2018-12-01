@@ -70,5 +70,32 @@ namespace VicFit.Web.Services
                 });
             return model;
         }
+
+        public List<FoodViewModel> SelectFoodsByUserId(string userId, string date)
+        {
+            List<FoodViewModel> result = new List<FoodViewModel>();
+            _dataProvider.ExecuteCmd(
+                "Food_SelectFoodsByUserId",
+                inputParamMapper : delegate(SqlParameterCollection paramList)
+                {
+                    paramList.AddWithValue("@UserId", userId);
+                    paramList.AddWithValue("@Date", date);
+                },
+                singleRecordMapper : delegate(IDataReader reader, short set)
+                {
+                    FoodViewModel model = new FoodViewModel();
+                    int idx = 0;
+                    model.Id = reader.GetInt32(idx++);
+                    model.Meal = reader.GetString(idx++);
+                    model.FoodName = reader.GetString(idx++);
+                    model.Calories = reader.GetInt32(idx++);
+                    model.Carbs = reader.GetInt32(idx++);
+                    model.Fats = reader.GetInt32(idx++);
+                    model.Proteins = reader.GetInt32(idx++);
+                    result.Add(model);
+                    idx++;
+                });
+            return result;
+        }
     }
 }

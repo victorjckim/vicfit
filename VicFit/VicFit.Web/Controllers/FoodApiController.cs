@@ -54,5 +54,21 @@ namespace VicFit.Web.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
+
+        [HttpGet]
+        [Route("{userId}/{date}")]
+        public HttpResponseMessage SelectFoodsByUserId(string userId, string date)
+        {
+            try
+            {
+                ItemsResponse<FoodViewModel> resp = new ItemsResponse<FoodViewModel>();
+                resp.Items = _foodService.SelectFoodsByUserId(userId, date);
+                return Request.CreateResponse(HttpStatusCode.OK, resp);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
     }
 }

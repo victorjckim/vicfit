@@ -3,6 +3,7 @@ import FoodHtml from "./FoodHtml";
 import FoodService from "../../services/FoodService";
 import { connect } from "react-redux";
 import { getMacros } from "../redux/UserActions";
+import moment from "moment";
 
 class Food extends React.Component {
   constructor(props) {
@@ -20,7 +21,8 @@ class Food extends React.Component {
         Carbs: "",
         Fats: "",
         Proteins: ""
-      }
+      },
+      todaysFoodArr: []
     };
   }
 
@@ -45,8 +47,17 @@ class Food extends React.Component {
       const dailyTotal = await FoodService.selectTotalByUserId(
         this.props.user.userId
       );
-      this.setState({ total: dailyTotal.data.Item, loading: false }, () =>
-        console.log(this.state)
+      const todaysFood = await FoodService.selectFoodsByUserId(
+        this.props.user.userId,
+        moment().format("YYYY-MM-DD")
+      );
+      this.setState(
+        {
+          total: dailyTotal.data.Item,
+          loading: false,
+          todaysFoodArr: todaysFood.data.Items
+        },
+        () => console.log(this.state)
       );
     }
   }

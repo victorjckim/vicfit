@@ -19,6 +19,15 @@ class FoodService {
     axios.defaults.withCredentials = true;
     return axios(url, config);
   }
+
+  static selectFoodsByUserId(userId, date) {
+    const url = `/api/food/${userId}/${date}`;
+    const config = {
+      method: "GET"
+    };
+    axios.defaults.withCredentials = true;
+    return axios(url, config);
+  }
 }
 
 export default FoodService;

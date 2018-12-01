@@ -22,6 +22,7 @@ const FoodHtml = props => {
                   style={{ borderBottom: "4px solid", borderTop: "4px solid" }}
                 >
                   <td />
+                  <td>Food Name</td>
                   <td>Calories</td>
                   <td>Carbs</td>
                   <td>Fat</td>
@@ -40,7 +41,24 @@ const FoodHtml = props => {
                   <td />
                   <td />
                   <td />
+                  <td />
                 </tr>
+                {props.todaysFoodArr.map((food, index) => {
+                  if (food.Meal === "Breakfast") {
+                    return (
+                      <tr key={index}>
+                        <td />
+                        <td>{food.FoodName}</td>
+                        <td>{food.Calories}</td>
+                        <td>{food.Carbs}g</td>
+                        <td>{food.Fats}g</td>
+                        <td>{food.Proteins}g</td>
+                      </tr>
+                    );
+                  } else {
+                    return "";
+                  }
+                })}
                 <tr className="header">
                   <td>Lunch</td>
                 </tr>
@@ -54,7 +72,24 @@ const FoodHtml = props => {
                   <td />
                   <td />
                   <td />
+                  <td />
                 </tr>
+                {props.todaysFoodArr.map((food, index) => {
+                  if (food.Meal === "Lunch") {
+                    return (
+                      <tr key={index}>
+                        <td />
+                        <td>{food.FoodName}</td>
+                        <td>{food.Calories}</td>
+                        <td>{food.Carbs}g</td>
+                        <td>{food.Fats}g</td>
+                        <td>{food.Proteins}g</td>
+                      </tr>
+                    );
+                  } else {
+                    return "";
+                  }
+                })}
                 <tr className="header">
                   <td>Dinner</td>
                 </tr>
@@ -68,7 +103,24 @@ const FoodHtml = props => {
                   <td />
                   <td />
                   <td />
+                  <td />
                 </tr>
+                {props.todaysFoodArr.map((food, index) => {
+                  if (food.Meal === "Dinner") {
+                    return (
+                      <tr key={index}>
+                        <td />
+                        <td>{food.FoodName}</td>
+                        <td>{food.Calories}</td>
+                        <td>{food.Carbs}g</td>
+                        <td>{food.Fats}g</td>
+                        <td>{food.Proteins}g</td>
+                      </tr>
+                    );
+                  } else {
+                    return "";
+                  }
+                })}
                 <tr className="header">
                   <td>Snacks</td>
                 </tr>
@@ -82,11 +134,28 @@ const FoodHtml = props => {
                   <td />
                   <td />
                   <td />
+                  <td />
                 </tr>
-
+                {props.todaysFoodArr.map((food, index) => {
+                  if (food.Meal === "Snacks") {
+                    return (
+                      <tr key={index}>
+                        <td />
+                        <td>{food.FoodName}</td>
+                        <td>{food.Calories}</td>
+                        <td>{food.Carbs}g</td>
+                        <td>{food.Fats}g</td>
+                        <td>{food.Proteins}g</td>
+                      </tr>
+                    );
+                  } else {
+                    return "";
+                  }
+                })}
                 <tr className="total" style={{ borderTop: "4px solid" }}>
-                  <td className="first">Totals</td>
                   {/* Totals calculated from the foods eaten that day */}
+                  <td className="first">Totals</td>
+                  <td />
                   <td>{props.total.TotalCalories}</td>
                   <td>{props.total.TotalCarbs}g</td>
                   <td>{props.total.TotalFats}g</td>
@@ -95,6 +164,7 @@ const FoodHtml = props => {
                 <tr className="total">
                   {/* Daily Goal will come from the database */}
                   <td className="first">Daily Goal</td>
+                  <td />
                   <td>{props.macros.Calories}</td>
                   <td>{props.macros.Carbs}g</td>
                   <td>{props.macros.Fats}g</td>
@@ -103,6 +173,7 @@ const FoodHtml = props => {
                 <tr className="total">
                   {/* Remaining will be calculated from the foods on that specific day*/}
                   <td className="first">Remaining</td>
+                  <td />
                   <td>{props.macros.Calories - props.total.TotalCalories}</td>
                   <td>{props.macros.Carbs - props.total.TotalCarbs}g</td>
                   <td>{props.macros.Fats - props.total.TotalFats}g</td>

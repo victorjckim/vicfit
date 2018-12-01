@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Layout from "./components/navigation/Layout";
 import { connect } from "react-redux";
-import { loginStatus } from "../src/components/redux/UserActions";
+import { loginStatus, getId } from "../src/components/redux/UserActions";
 import { withRouter } from "react-router-dom";
 
 class App extends Component {
@@ -28,9 +28,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    currentUser: data => {
-      dispatch(loginStatus(data))
-        .then(resp => console.log(resp))
+    currentUser: async data => {
+      await dispatch(loginStatus(data))
+        .then(
+          async resp =>
+            await dispatch(getId(resp.value.Email))
+              .then(resp => console.log(resp))
+              .catch(err => console.error(err))
+        )
         .catch(err => console.error(err));
     }
   };

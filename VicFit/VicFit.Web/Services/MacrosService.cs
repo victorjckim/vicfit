@@ -52,12 +52,12 @@ namespace VicFit.Web.Services
                             carbs = (calories - ((proteins * 4) + (fats * 9))) / 4;
                         } else if (profileStats.GoalId == 2) {
                             calories += 500;
-                            proteins = (int)Math.Round(Convert.ToDouble(0.7 * (0.8 * profileStats.CurrentWeight));
+                            proteins = (int)Math.Round(Convert.ToDouble(0.7 * (0.8 * profileStats.CurrentWeight)));
                             fats = (int)Math.Round(Convert.ToDouble(0.35 * (0.8 * profileStats.CurrentWeight)));
                             carbs = (calories - ((proteins * 4) + (fats * 9))) / 4;
                         } else {
                             calories += 100;
-                            proteins = (int)Math.Round(Convert.ToDouble(0.8 * (0.8 * profileStats.CurrentWeight));
+                            proteins = (int)Math.Round(Convert.ToDouble(0.8 * (0.8 * profileStats.CurrentWeight)));
                             fats = (int)Math.Round(Convert.ToDouble(0.35 * (0.8 * profileStats.CurrentWeight)));
                             carbs = (calories - ((proteins * 4) + (fats * 9))) / 4;
                         }

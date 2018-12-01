@@ -21,6 +21,9 @@ class Dashboard extends React.Component {
       );
     } else {
       await this.props.userMacros(this.props.user.userId);
+      this.setState({ macros: this.props.user.macros }, () =>
+        console.log(this.state)
+      );
     }
   }
 

@@ -1,6 +1,9 @@
 import React from "react";
 import NutritionService from "../../services/NutritionService";
 import SearchFoodHtml from "./SearchFoodHtml";
+import { connect } from "react-redux";
+import FoodService from "../../services/FoodService";
+import moment from "moment";
 
 class SearchFood extends React.Component {
   constructor(props) {
@@ -9,11 +12,15 @@ class SearchFood extends React.Component {
       search: "",
       confirmAdd: false,
       foodArr: [],
+      date: "",
       nutrientObj: {
+        foodName: "",
         calories: "",
         carbs: "",
         fats: "",
-        proteins: ""
+        proteins: "",
+        date: "",
+        userId: ""
       }
     };
   }
@@ -26,34 +33,31 @@ class SearchFood extends React.Component {
 
   searchFood = async () => {
     const searchResult = await NutritionService.searchFood(this.state.search);
-    this.setState({ foodArr: searchResult.data.branded }, () =>
-      console.log("Food Arr set", this.state.foodArr)
-    );
+    this.setState({ foodArr: searchResult.data.branded });
   };
 
   getNutrients = async evt => {
     const itemNutrients = await NutritionService.getNutrients(evt.target.id);
     const resp = itemNutrients.data.foods[0];
     const respObj = {
+      foodName: resp.food_name,
       calories: resp.nf_calories,
       carbs: resp.nf_total_carbohydrate,
       fats: resp.nf_total_fat,
-      proteins: resp.nf_protein
+      proteins: resp.nf_protein,
+      date: moment().format("YYYY-MM-DD"),
+      userId: this.props.user.userId
     };
-    this.setState({ confirmAdd: true, nutrientObj: respObj });
-    console.log(itemNutrients.data.foods[0]);
+    this.setState({ confirmAdd: true, nutrientObj: respObj }, () =>
+      console.log(this.state.nutrientObj)
+    );
   };
 
-  addFoodToDiary = () => {
-    this.setState(
-      {
-        confirmAdd: false,
-        foodArr: [],
-        nutrientObj: {},
-        search: ""
-      },
-      () => this.props.history.push("/food")
-    );
+  addFoodToDiary = async () => {
+    await FoodService.create(this.state.nutrientObj)
+      .then(resp => console.log(resp))
+      .catch(err => console.error(err));
+    this.props.history.push("/food");
   };
 
   cancelBack = () => {
@@ -77,4 +81,10 @@ class SearchFood extends React.Component {
   }
 }
 
-export default SearchFood;
+const mapStateToProps = state => {
+  return {
+    user: state.UserReducer
+  };
+};
+
+export default connect(mapStateToProps)(SearchFood);

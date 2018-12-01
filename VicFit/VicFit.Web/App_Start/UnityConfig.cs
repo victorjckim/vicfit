@@ -36,6 +36,7 @@ namespace VicFit.Web
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<IProfileService, ProfileService>();
             container.RegisterType<IMacrosService, MacrosService>();
+            container.RegisterType<IFoodService, FoodService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 

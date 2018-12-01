@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using VicFit.Web.Interfaces;
+using VicFit.Web.Models;
 using VicFit.Web.Requests;
 using VicFit.Web.Responses;
 
@@ -30,6 +31,22 @@ namespace VicFit.Web.Controllers
                 int id = _foodService.Create(model);
                 ItemResponse<int> resp = new ItemResponse<int>();
                 resp.Item = id;
+                return Request.CreateResponse(HttpStatusCode.OK, resp);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("{userId}")]
+        public HttpResponseMessage SelectTotalByUserId(string userId)
+        {
+            try
+            {
+                ItemResponse<DailyTotalViewModel> resp = new ItemResponse<DailyTotalViewModel>();
+                resp.Item = _foodService.SelectTotalByUserId(userId);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)

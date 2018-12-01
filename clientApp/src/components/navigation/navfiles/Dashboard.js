@@ -65,8 +65,8 @@ const mapDispatchToProps = dispatch => {
         })
         .catch(err => console.error(err));
     },
-    userMacros: userId => {
-      dispatch(getMacros(userId))
+    userMacros: async userId => {
+      await dispatch(getMacros(userId))
         .then(resp => console.log(resp))
         .catch(err => console.error(err));
     }

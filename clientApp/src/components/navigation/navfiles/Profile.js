@@ -159,7 +159,7 @@ class Profile extends React.Component {
     }
   };
 
-  submitProfile = () => {
+  submitProfile = async () => {
     const {
       feet,
       inches,
@@ -182,9 +182,10 @@ class Profile extends React.Component {
         activity: parseFloat(active),
         userId: this.props.user.userId
       };
-      ProfileService.create(profileData)
-        .then(resp =>
-          MacrosService.create(this.props.user.userId, resp.data.Item)
+      await ProfileService.create(profileData)
+        .then(
+          async resp =>
+            await MacrosService.create(this.props.user.userId, resp.data.Item)
         )
         .catch(err => console.error(err));
       this.setState({ showErrors: false }, () =>

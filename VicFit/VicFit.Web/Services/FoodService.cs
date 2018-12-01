@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using VicFit.Web.Interfaces;
+using VicFit.Web.Models;
 using VicFit.Web.Requests;
 
 namespace VicFit.Web.Services
@@ -44,6 +45,29 @@ namespace VicFit.Web.Services
                     id = (int)paramList["@Id"].Value;
                 });
             return id;
+        }
+
+        public DailyTotalViewModel SelectTotalByUserId(string userId)
+        {
+            DailyTotalViewModel model = new DailyTotalViewModel();
+            _dataProvider.ExecuteCmd(
+                "Food_SelectTotalByUserId",
+                inputParamMapper : delegate(SqlParameterCollection paramList)
+                {
+                    paramList.AddWithValue("@UserId", userId);
+                },
+                singleRecordMapper : delegate(IDataReader reader, short set)
+                {
+                    int idx = 0;
+                    model.TotalCalories = reader.GetInt32(idx++);
+                    model.TotalCarbs = reader.GetInt32(idx++);
+                    model.TotalFats = reader.GetInt32(idx++);
+                    model.TotalProteins = reader.GetInt32(idx++);
+                    model.Date = reader.GetString(idx++);
+                    model.UserId = reader.GetString(idx++);
+                    idx++;
+                });
+            return model;
         }
     }
 }

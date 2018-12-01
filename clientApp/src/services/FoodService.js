@@ -10,6 +10,15 @@ class FoodService {
     axios.defaults.withCredentials = true;
     return axios(url, config);
   }
+
+  static selectTotalByUserId(userId) {
+    const url = `/api/food/${userId}`;
+    const config = {
+      method: "GET"
+    };
+    axios.defaults.withCredentials = true;
+    return axios(url, config);
+  }
 }
 
 export default FoodService;

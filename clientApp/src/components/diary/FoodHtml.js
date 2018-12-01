@@ -87,10 +87,24 @@ const FoodHtml = props => {
                 <tr className="total" style={{ borderTop: "4px solid" }}>
                   <td className="first">Totals</td>
                   {/* Totals calculated from the foods eaten that day */}
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
+                  <td>
+                    {props.total.TotalCalories === ""
+                      ? ""
+                      : props.total.TotalCalories}
+                  </td>
+                  <td>
+                    {props.total.TotalCarbs === ""
+                      ? ""
+                      : props.total.TotalCarbs}
+                  </td>
+                  <td>
+                    {props.total.TotalFats === "" ? "" : props.total.TotalFats}
+                  </td>
+                  <td>
+                    {props.total.TotalProteins === ""
+                      ? ""
+                      : props.total.TotalProteins}
+                  </td>
                 </tr>
                 <tr className="total">
                   {/* Daily Goal will come from the database */}

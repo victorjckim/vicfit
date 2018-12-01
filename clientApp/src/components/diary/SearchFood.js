@@ -13,6 +13,7 @@ class SearchFood extends React.Component {
       confirmAdd: false,
       foodArr: [],
       date: "",
+      meal: "",
       nutrientObj: {
         foodName: "",
         calories: "",
@@ -23,6 +24,12 @@ class SearchFood extends React.Component {
         userId: ""
       }
     };
+  }
+
+  componentDidMount() {
+    this.setState({ meal: this.props.location.state.meal }, () =>
+      console.log(this.state)
+    );
   }
 
   onChange = evt => {
@@ -40,6 +47,7 @@ class SearchFood extends React.Component {
     const itemNutrients = await NutritionService.getNutrients(evt.target.id);
     const resp = itemNutrients.data.foods[0];
     const respObj = {
+      meal: this.state.meal,
       foodName: resp.food_name,
       calories: resp.nf_calories,
       carbs: resp.nf_total_carbohydrate,
@@ -62,7 +70,6 @@ class SearchFood extends React.Component {
 
   cancelBack = () => {
     this.setState({ confirmAdd: false, nutrientObj: {} });
-    // use to reset state on click of cancel
   };
 
   render() {

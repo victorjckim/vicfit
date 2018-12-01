@@ -1,3 +1,5 @@
-.add {
+span {
+  color: maroon;
+  font-weight: 500;
   cursor: pointer;
 }

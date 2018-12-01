@@ -32,6 +32,7 @@ namespace VicFit.Web.Services
                     param.Direction = ParameterDirection.Output;
                     paramList.Add(param);
 
+                    paramList.AddWithValue("@Meal", model.Meal);
                     paramList.AddWithValue("@FoodName", model.FoodName);
                     paramList.AddWithValue("@Calories", model.Calories);
                     paramList.AddWithValue("@Carbs", model.Carbs);

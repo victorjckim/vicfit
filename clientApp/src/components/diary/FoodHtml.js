@@ -32,7 +32,7 @@ const FoodHtml = props => {
                 </tr>
                 <tr>
                   <td>
-                    <span className="add" onClick={props.searchFood}>
+                    <span className="Breakfast" onClick={props.searchFood}>
                       Add Food
                     </span>
                   </td>
@@ -46,7 +46,7 @@ const FoodHtml = props => {
                 </tr>
                 <tr>
                   <td>
-                    <span className="add" onClick={props.searchFood}>
+                    <span className="Lunch" onClick={props.searchFood}>
                       Add Food
                     </span>
                   </td>
@@ -60,7 +60,7 @@ const FoodHtml = props => {
                 </tr>
                 <tr>
                   <td>
-                    <span className="add" onClick={props.searchFood}>
+                    <span className="Dinner" onClick={props.searchFood}>
                       Add Food
                     </span>
                   </td>
@@ -74,7 +74,7 @@ const FoodHtml = props => {
                 </tr>
                 <tr>
                   <td>
-                    <span className="add" onClick={props.searchFood}>
+                    <span className="Snacks" onClick={props.searchFood}>
                       Add Food
                     </span>
                   </td>
@@ -88,25 +88,25 @@ const FoodHtml = props => {
                   <td className="first">Totals</td>
                   {/* Totals calculated from the foods eaten that day */}
                   <td>{props.total.TotalCalories}</td>
-                  <td>{props.total.TotalCarbs}</td>
-                  <td>{props.total.TotalFats}</td>
-                  <td>{props.total.TotalProteins}</td>
+                  <td>{props.total.TotalCarbs}g</td>
+                  <td>{props.total.TotalFats}g</td>
+                  <td>{props.total.TotalProteins}g</td>
                 </tr>
                 <tr className="total">
                   {/* Daily Goal will come from the database */}
                   <td className="first">Daily Goal</td>
                   <td>{props.macros.Calories}</td>
-                  <td>{props.macros.Carbs}</td>
-                  <td>{props.macros.Fats}</td>
-                  <td>{props.macros.Proteins}</td>
+                  <td>{props.macros.Carbs}g</td>
+                  <td>{props.macros.Fats}g</td>
+                  <td>{props.macros.Proteins}g</td>
                 </tr>
                 <tr className="total">
                   {/* Remaining will be calculated from the foods on that specific day*/}
                   <td className="first">Remaining</td>
                   <td>{props.macros.Calories - props.total.TotalCalories}</td>
-                  <td>{props.macros.Carbs - props.total.TotalCarbs}</td>
-                  <td>{props.macros.Fats - props.total.TotalFats}</td>
-                  <td>{props.macros.Proteins - props.total.TotalProteins}</td>
+                  <td>{props.macros.Carbs - props.total.TotalCarbs}g</td>
+                  <td>{props.macros.Fats - props.total.TotalFats}g</td>
+                  <td>{props.macros.Proteins - props.total.TotalProteins}g</td>
                 </tr>
               </tbody>
             </table>

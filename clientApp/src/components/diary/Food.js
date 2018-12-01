@@ -33,7 +33,12 @@ class Food extends React.Component {
   }
 
   async componentDidUpdate() {
-    if (
+    if (this.props.user.userId !== "" && this.state.macros.Calories === "") {
+      await this.props.userMacros(this.props.user.userId);
+      this.setState({ macros: this.props.user.macros }, () =>
+        console.log(this.state)
+      );
+    } else if (
       this.props.user.userId !== "" &&
       this.state.total.TotalCalories === ""
     ) {
@@ -41,14 +46,6 @@ class Food extends React.Component {
         this.props.user.userId
       );
       this.setState({ total: dailyTotal.data.Item, loading: false }, () =>
-        console.log(this.state)
-      );
-    } else if (
-      this.props.user.userId !== "" &&
-      this.state.macros.Calories === ""
-    ) {
-      await this.props.userMacros(this.props.user.userId);
-      this.setState({ macros: this.props.user.macros }, () =>
         console.log(this.state)
       );
     }
@@ -60,8 +57,11 @@ class Food extends React.Component {
     this.setState({ [key]: val });
   };
 
-  searchFood = () => {
-    this.props.history.push("/search");
+  searchFood = evt => {
+    this.props.history.push({
+      pathname: "/search",
+      state: { meal: evt.target.getAttribute("class") }
+    });
   };
 
   render() {

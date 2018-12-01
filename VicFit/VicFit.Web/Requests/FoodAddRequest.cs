@@ -7,6 +7,7 @@ namespace VicFit.Web.Requests
 {
     public class FoodAddRequest
     {
+        public string Meal { get; set; }
         public string FoodName { get; set; }
         public int Calories { get; set; }
         public int Carbs { get; set; }

@@ -97,5 +97,15 @@ namespace VicFit.Web.Services
                 });
             return result;
         }
+
+        public void Delete(int id)
+        {
+            _dataProvider.ExecuteNonQuery(
+                "Food_Delete",
+                inputParamMapper : delegate(SqlParameterCollection paramList)
+                {
+                    paramList.AddWithValue("@Id", id);
+                });
+        }
     }
 }

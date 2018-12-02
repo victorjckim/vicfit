@@ -28,6 +28,15 @@ class FoodService {
     axios.defaults.withCredentials = true;
     return axios(url, config);
   }
+
+  static delete(foodId) {
+    const url = `/api/food/${foodId}`;
+    const config = {
+      method: "DELETE"
+    };
+    axios.defaults.withCredentials = true;
+    return axios(url, config);
+  }
 }
 
 export default FoodService;

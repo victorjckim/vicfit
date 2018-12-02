@@ -70,5 +70,21 @@ namespace VicFit.Web.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public HttpResponseMessage Delete(int id)
+        {
+            try
+            {
+                _foodService.Delete(id);
+                SuccessResponse resp = new SuccessResponse();
+                return Request.CreateResponse(HttpStatusCode.OK, resp);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
     }
 }

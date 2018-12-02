@@ -4,6 +4,7 @@ import FoodService from "../../services/FoodService";
 import { connect } from "react-redux";
 import { getMacros } from "../redux/UserActions";
 import moment from "moment";
+import LoadingAnimation from "./LoadingAnimation";
 
 class Food extends React.Component {
   constructor(props) {
@@ -22,11 +23,13 @@ class Food extends React.Component {
         Fats: "",
         Proteins: ""
       },
-      todaysFoodArr: []
+      todaysFoodArr: [],
+      waiting: true
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    this.showLoadingModal();
     if (this.props.user.userId === "") {
       this.setState({ loading: true });
     } else if (this.props.user.userId !== "") {
@@ -53,13 +56,14 @@ class Food extends React.Component {
       );
       this.setState(
         {
+          todaysFoodArr: todaysFood.data.Items,
           total: dailyTotal.data.Item,
-          loading: false,
-          todaysFoodArr: todaysFood.data.Items
+          loading: false
         },
         () => console.log(this.state)
       );
     }
+    this.closeLoadingModal();
   }
 
   onChange = evt => {
@@ -75,14 +79,72 @@ class Food extends React.Component {
     });
   };
 
+  deleteFood = async evt => {
+    const deleteEntry = await FoodService.delete(evt.target.id);
+    console.log(deleteEntry);
+    const dailyTotal = await FoodService.selectTotalByUserId(
+      this.props.user.userId
+    );
+    const updateFood = await FoodService.selectFoodsByUserId(
+      this.props.user.userId,
+      moment().format("YYYY-MM-DD")
+    );
+    this.setState({
+      todaysFoodArr: updateFood.data.Items,
+      total: dailyTotal.data.Item
+    });
+  };
+
+  showLoadingModal = () => {
+    this.showLoading.click();
+  };
+
+  closeLoadingModal = () => {
+    this.closeLoading.click();
+  };
+
   render() {
+    const loadingModal = (
+      <div
+        className="modal fade show"
+        id="modals-loading"
+        data-backdrop="static"
+        data-keyboard="false"
+      >
+        <div className="modal-dialog">
+          <form className="modal-content">
+            <button
+              type="button"
+              className="modalShow"
+              data-toggle="modal"
+              data-target="#modals-loading"
+              ref={modal => (this.showLoading = modal)}
+            >
+              Show
+            </button>
+            <button
+              type="button"
+              className="close modalShow"
+              data-dismiss="modal"
+              aria-label="Close"
+              ref={modal => (this.closeLoading = modal)}
+            >
+              Close
+            </button>
+          </form>
+        </div>
+        <LoadingAnimation />
+      </div>
+    );
     return (
       <React.Fragment>
         <FoodHtml
           {...this.state}
           onChange={this.onChange}
           searchFood={this.searchFood}
+          deleteFood={this.deleteFood}
         />
+        {loadingModal}
       </React.Fragment>
     );
   }

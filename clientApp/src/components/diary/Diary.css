@@ -3,3 +3,19 @@ span {
   font-weight: 500;
   cursor: pointer;
 }
+
+.modal-backdrop {
+  opacity: 0.7 !important;
+  background-color: red;
+}
+
+#modals-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modalShow {
+  display: none;
+}

@@ -13,5 +13,6 @@ namespace VicFit.Web.Interfaces
         int Create(FoodAddRequest model);
         DailyTotalViewModel SelectTotalByUserId(string userId);
         List<FoodViewModel> SelectFoodsByUserId(string userId, string date);
+        void Delete(int id);
     }
 }

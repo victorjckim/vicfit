@@ -34,6 +34,7 @@ const FoodHtml = props => {
                   <td>Carbs</td>
                   <td>Fat</td>
                   <td>Protein</td>
+                  <td />
                 </tr>
                 {breakfast.length === 0 ? (
                   <tr>
@@ -50,6 +51,14 @@ const FoodHtml = props => {
                           <td>{food.Carbs}g</td>
                           <td>{food.Fats}g</td>
                           <td>{food.Proteins}g</td>
+                          <td>
+                            <span onClick={props.deleteFood}>
+                              <i
+                                id={food.Id}
+                                className="ion ion-ios-close-circle-outline"
+                              />
+                            </span>
+                          </td>
                         </tr>
                       );
                     } else {
@@ -61,6 +70,14 @@ const FoodHtml = props => {
                           <td>{food.Carbs}g</td>
                           <td>{food.Fats}g</td>
                           <td>{food.Proteins}g</td>
+                          <td>
+                            <span onClick={props.deleteFood}>
+                              <i
+                                id={food.Id}
+                                className="ion ion-ios-close-circle-outline"
+                              />
+                            </span>
+                          </td>
                         </tr>
                       );
                     }
@@ -72,6 +89,7 @@ const FoodHtml = props => {
                       Add Food
                     </span>
                   </td>
+                  <td />
                   <td />
                   <td />
                   <td />
@@ -93,6 +111,14 @@ const FoodHtml = props => {
                           <td>{food.Carbs}g</td>
                           <td>{food.Fats}g</td>
                           <td>{food.Proteins}g</td>
+                          <td>
+                            <span onClick={props.deleteFood}>
+                              <i
+                                id={food.Id}
+                                className="ion ion-ios-close-circle-outline"
+                              />
+                            </span>
+                          </td>
                         </tr>
                       );
                     } else {
@@ -104,6 +130,14 @@ const FoodHtml = props => {
                           <td>{food.Carbs}g</td>
                           <td>{food.Fats}g</td>
                           <td>{food.Proteins}g</td>
+                          <td>
+                            <span onClick={props.deleteFood}>
+                              <i
+                                id={food.Id}
+                                className="ion ion-ios-close-circle-outline"
+                              />
+                            </span>
+                          </td>
                         </tr>
                       );
                     }
@@ -115,6 +149,7 @@ const FoodHtml = props => {
                       Add Food
                     </span>
                   </td>
+                  <td />
                   <td />
                   <td />
                   <td />
@@ -136,6 +171,14 @@ const FoodHtml = props => {
                           <td>{food.Carbs}g</td>
                           <td>{food.Fats}g</td>
                           <td>{food.Proteins}g</td>
+                          <td>
+                            <span onClick={props.deleteFood}>
+                              <i
+                                id={food.Id}
+                                className="ion ion-ios-close-circle-outline"
+                              />
+                            </span>
+                          </td>
                         </tr>
                       );
                     } else {
@@ -147,6 +190,14 @@ const FoodHtml = props => {
                           <td>{food.Carbs}g</td>
                           <td>{food.Fats}g</td>
                           <td>{food.Proteins}g</td>
+                          <td>
+                            <span onClick={props.deleteFood}>
+                              <i
+                                id={food.Id}
+                                className="ion ion-ios-close-circle-outline"
+                              />
+                            </span>
+                          </td>
                         </tr>
                       );
                     }
@@ -158,6 +209,7 @@ const FoodHtml = props => {
                       Add Food
                     </span>
                   </td>
+                  <td />
                   <td />
                   <td />
                   <td />
@@ -179,6 +231,14 @@ const FoodHtml = props => {
                           <td>{food.Carbs}g</td>
                           <td>{food.Fats}g</td>
                           <td>{food.Proteins}g</td>
+                          <td>
+                            <span onClick={props.deleteFood}>
+                              <i
+                                id={food.Id}
+                                className="ion ion-ios-close-circle-outline"
+                              />
+                            </span>
+                          </td>
                         </tr>
                       );
                     } else {
@@ -190,6 +250,14 @@ const FoodHtml = props => {
                           <td>{food.Carbs}g</td>
                           <td>{food.Fats}g</td>
                           <td>{food.Proteins}g</td>
+                          <td>
+                            <span onClick={props.deleteFood}>
+                              <i
+                                id={food.Id}
+                                className="ion ion-ios-close-circle-outline"
+                              />
+                            </span>
+                          </td>
                         </tr>
                       );
                     }
@@ -206,6 +274,7 @@ const FoodHtml = props => {
                   <td />
                   <td />
                   <td />
+                  <td />
                 </tr>
                 <tr className="total" style={{ borderTop: "4px solid" }}>
                   {/* Totals calculated from the foods eaten that day */}
@@ -215,6 +284,7 @@ const FoodHtml = props => {
                   <td>{props.total.TotalCarbs}g</td>
                   <td>{props.total.TotalFats}g</td>
                   <td>{props.total.TotalProteins}g</td>
+                  <td />
                 </tr>
                 <tr className="total">
                   {/* Daily Goal will come from the database */}
@@ -224,6 +294,7 @@ const FoodHtml = props => {
                   <td>{props.macros.Carbs}g</td>
                   <td>{props.macros.Fats}g</td>
                   <td>{props.macros.Proteins}g</td>
+                  <td />
                 </tr>
                 <tr className="total">
                   {/* Remaining will be calculated from the foods on that specific day*/}
@@ -233,6 +304,7 @@ const FoodHtml = props => {
                   <td>{props.macros.Carbs - props.total.TotalCarbs}g</td>
                   <td>{props.macros.Fats - props.total.TotalFats}g</td>
                   <td>{props.macros.Proteins - props.total.TotalProteins}g</td>
+                  <td />
                 </tr>
               </tbody>
             </table>

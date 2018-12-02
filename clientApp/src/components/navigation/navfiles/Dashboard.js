@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getId, getMacros } from "../../redux/UserActions";
 import ProfileService from "../../../services/ProfileService";
 import MacrosService from "../../../services/MacrosService";
+import ArticleService from "../../../services/ArticleService";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -16,11 +17,14 @@ class Dashboard extends React.Component {
         CurrentWeight: "",
         GoalWeight: ""
       },
-      currentWeight: ""
+      currentWeight: "",
+      articleArr: []
     };
   }
 
   async componentDidMount() {
+    const articles = await ArticleService.getArticles();
+    this.setState({ articleArr: articles.data.Items });
     if (this.props.user.userId === "") {
       await this.props.getUserId(this.props.user.userName);
       const profile = await ProfileService.selectByUserId(

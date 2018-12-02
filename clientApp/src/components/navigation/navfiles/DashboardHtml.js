@@ -85,6 +85,32 @@ const DashboardHtml = props => {
               </font>
             </div>
           </div>
+          <br />
+          <br />
+          <div className="card-header text-center mb-2">
+            <font style={{ fontSize: "22pt", font: "helvetica" }}>
+              Today's Articles
+            </font>
+          </div>
+          {props.articleArr === []
+            ? ""
+            : props.articleArr.map((article, index) => {
+                return (
+                  <div className="row" key={index}>
+                    <div className="col-md-10 offset-md-1 text-center mt-1">
+                      <font style={{ fontSize: "18pt", color: "maroon" }}>
+                        <a
+                          href={`https://www.sciencedaily.com${article.Link}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {article.Title}
+                        </a>
+                      </font>
+                    </div>
+                  </div>
+                );
+              })}
         </div>
       </div>
     </div>

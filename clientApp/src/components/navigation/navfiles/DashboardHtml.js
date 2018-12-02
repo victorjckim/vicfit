@@ -87,7 +87,7 @@ const DashboardHtml = props => {
           </div>
           <br />
           <br />
-          <div className="card-header text-center mb-2">
+          <div className="card-header text-center mt-4 mb-2">
             <font style={{ fontSize: "22pt", font: "helvetica" }}>
               Today's Articles
             </font>

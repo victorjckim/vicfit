@@ -1,5 +1,6 @@
 import React from "react";
 import "./Diary.css";
+import moment from "moment";
 
 const FoodHtml = props => {
   const breakfast = props.todaysFoodArr.filter(
@@ -280,10 +281,21 @@ const FoodHtml = props => {
                   {/* Totals calculated from the foods eaten that day */}
                   <td className="first">Totals</td>
                   <td />
-                  <td>{props.total.TotalCalories}</td>
-                  <td>{props.total.TotalCarbs}g</td>
-                  <td>{props.total.TotalFats}g</td>
-                  <td>{props.total.TotalProteins}g</td>
+                  {props.total.Date === moment().format("YYYY-MM-DD") ? (
+                    <React.Fragment>
+                      <td>{props.total.TotalCalories}</td>
+                      <td>{props.total.TotalCarbs}g</td>
+                      <td>{props.total.TotalFats}g</td>
+                      <td>{props.total.TotalProteins}g</td>
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <td>0</td>
+                      <td>0g</td>
+                      <td>0g</td>
+                      <td>0g</td>
+                    </React.Fragment>
+                  )}
                   <td />
                 </tr>
                 <tr className="total">
@@ -300,10 +312,25 @@ const FoodHtml = props => {
                   {/* Remaining will be calculated from the foods on that specific day*/}
                   <td className="first">Remaining</td>
                   <td />
-                  <td>{props.macros.Calories - props.total.TotalCalories}</td>
-                  <td>{props.macros.Carbs - props.total.TotalCarbs}g</td>
-                  <td>{props.macros.Fats - props.total.TotalFats}g</td>
-                  <td>{props.macros.Proteins - props.total.TotalProteins}g</td>
+                  {props.total.Date === moment().format("YYYY-MM-DD") ? (
+                    <React.Fragment>
+                      <td>
+                        {props.macros.Calories - props.total.TotalCalories}
+                      </td>
+                      <td>{props.macros.Carbs - props.total.TotalCarbs}g</td>
+                      <td>{props.macros.Fats - props.total.TotalFats}g</td>
+                      <td>
+                        {props.macros.Proteins - props.total.TotalProteins}g
+                      </td>
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <td>{props.macros.Calories}</td>
+                      <td>{props.macros.Carbs}g</td>
+                      <td>{props.macros.Fats}g</td>
+                      <td>{props.macros.Proteins}g</td>
+                    </React.Fragment>
+                  )}
                   <td />
                 </tr>
               </tbody>

@@ -2,6 +2,13 @@ import React from "react";
 import "./Diary.css";
 
 const FoodHtml = props => {
+  const breakfast = props.todaysFoodArr.filter(
+    food => food.Meal === "Breakfast"
+  );
+  const lunch = props.todaysFoodArr.filter(food => food.Meal === "Lunch");
+  const dinner = props.todaysFoodArr.filter(food => food.Meal === "Dinner");
+  const snacks = props.todaysFoodArr.filter(food => food.Meal === "Snacks");
+  console.log(snacks);
   return (
     <div className="col-lg-8 offset-lg-2">
       <div
@@ -28,9 +35,37 @@ const FoodHtml = props => {
                   <td>Fat</td>
                   <td>Protein</td>
                 </tr>
-                <tr className="header">
-                  <td>Breakfast</td>
-                </tr>
+                {breakfast.length === 0 ? (
+                  <tr>
+                    <td>Breakfast</td>
+                  </tr>
+                ) : (
+                  breakfast.map((food, index) => {
+                    if (index === 0) {
+                      return (
+                        <tr key={index}>
+                          <td>Breakfast</td>
+                          <td>{food.FoodName}</td>
+                          <td>{food.Calories}</td>
+                          <td>{food.Carbs}g</td>
+                          <td>{food.Fats}g</td>
+                          <td>{food.Proteins}g</td>
+                        </tr>
+                      );
+                    } else {
+                      return (
+                        <tr key={index}>
+                          <td />
+                          <td>{food.FoodName}</td>
+                          <td>{food.Calories}</td>
+                          <td>{food.Carbs}g</td>
+                          <td>{food.Fats}g</td>
+                          <td>{food.Proteins}g</td>
+                        </tr>
+                      );
+                    }
+                  })
+                )}
                 <tr>
                   <td>
                     <span className="Breakfast" onClick={props.searchFood}>
@@ -43,25 +78,37 @@ const FoodHtml = props => {
                   <td />
                   <td />
                 </tr>
-                {props.todaysFoodArr.map((food, index) => {
-                  if (food.Meal === "Breakfast") {
-                    return (
-                      <tr key={index}>
-                        <td />
-                        <td>{food.FoodName}</td>
-                        <td>{food.Calories}</td>
-                        <td>{food.Carbs}g</td>
-                        <td>{food.Fats}g</td>
-                        <td>{food.Proteins}g</td>
-                      </tr>
-                    );
-                  } else {
-                    return "";
-                  }
-                })}
-                <tr className="header">
-                  <td>Lunch</td>
-                </tr>
+                {lunch.length === 0 ? (
+                  <tr>
+                    <td>Lunch</td>
+                  </tr>
+                ) : (
+                  lunch.map((food, index) => {
+                    if (index === 0) {
+                      return (
+                        <tr key={index}>
+                          <td>Lunch</td>
+                          <td>{food.FoodName}</td>
+                          <td>{food.Calories}</td>
+                          <td>{food.Carbs}g</td>
+                          <td>{food.Fats}g</td>
+                          <td>{food.Proteins}g</td>
+                        </tr>
+                      );
+                    } else {
+                      return (
+                        <tr key={index}>
+                          <td />
+                          <td>{food.FoodName}</td>
+                          <td>{food.Calories}</td>
+                          <td>{food.Carbs}g</td>
+                          <td>{food.Fats}g</td>
+                          <td>{food.Proteins}g</td>
+                        </tr>
+                      );
+                    }
+                  })
+                )}
                 <tr>
                   <td>
                     <span className="Lunch" onClick={props.searchFood}>
@@ -74,25 +121,37 @@ const FoodHtml = props => {
                   <td />
                   <td />
                 </tr>
-                {props.todaysFoodArr.map((food, index) => {
-                  if (food.Meal === "Lunch") {
-                    return (
-                      <tr key={index}>
-                        <td />
-                        <td>{food.FoodName}</td>
-                        <td>{food.Calories}</td>
-                        <td>{food.Carbs}g</td>
-                        <td>{food.Fats}g</td>
-                        <td>{food.Proteins}g</td>
-                      </tr>
-                    );
-                  } else {
-                    return "";
-                  }
-                })}
-                <tr className="header">
-                  <td>Dinner</td>
-                </tr>
+                {dinner.length === 0 ? (
+                  <tr>
+                    <td>Dinner</td>
+                  </tr>
+                ) : (
+                  dinner.map((food, index) => {
+                    if (index === 0) {
+                      return (
+                        <tr key={index}>
+                          <td>Dinner</td>
+                          <td>{food.FoodName}</td>
+                          <td>{food.Calories}</td>
+                          <td>{food.Carbs}g</td>
+                          <td>{food.Fats}g</td>
+                          <td>{food.Proteins}g</td>
+                        </tr>
+                      );
+                    } else {
+                      return (
+                        <tr key={index}>
+                          <td />
+                          <td>{food.FoodName}</td>
+                          <td>{food.Calories}</td>
+                          <td>{food.Carbs}g</td>
+                          <td>{food.Fats}g</td>
+                          <td>{food.Proteins}g</td>
+                        </tr>
+                      );
+                    }
+                  })
+                )}
                 <tr>
                   <td>
                     <span className="Dinner" onClick={props.searchFood}>
@@ -105,25 +164,37 @@ const FoodHtml = props => {
                   <td />
                   <td />
                 </tr>
-                {props.todaysFoodArr.map((food, index) => {
-                  if (food.Meal === "Dinner") {
-                    return (
-                      <tr key={index}>
-                        <td />
-                        <td>{food.FoodName}</td>
-                        <td>{food.Calories}</td>
-                        <td>{food.Carbs}g</td>
-                        <td>{food.Fats}g</td>
-                        <td>{food.Proteins}g</td>
-                      </tr>
-                    );
-                  } else {
-                    return "";
-                  }
-                })}
-                <tr className="header">
-                  <td>Snacks</td>
-                </tr>
+                {snacks.length === 0 ? (
+                  <tr>
+                    <td>Snacks</td>
+                  </tr>
+                ) : (
+                  snacks.map((food, index) => {
+                    if (index === 0) {
+                      return (
+                        <tr key={index}>
+                          <td>Snacks</td>
+                          <td>{food.FoodName}</td>
+                          <td>{food.Calories}</td>
+                          <td>{food.Carbs}g</td>
+                          <td>{food.Fats}g</td>
+                          <td>{food.Proteins}g</td>
+                        </tr>
+                      );
+                    } else {
+                      return (
+                        <tr key={index}>
+                          <td />
+                          <td>{food.FoodName}</td>
+                          <td>{food.Calories}</td>
+                          <td>{food.Carbs}g</td>
+                          <td>{food.Fats}g</td>
+                          <td>{food.Proteins}g</td>
+                        </tr>
+                      );
+                    }
+                  })
+                )}
                 <tr>
                   <td>
                     <span className="Snacks" onClick={props.searchFood}>
@@ -136,22 +207,6 @@ const FoodHtml = props => {
                   <td />
                   <td />
                 </tr>
-                {props.todaysFoodArr.map((food, index) => {
-                  if (food.Meal === "Snacks") {
-                    return (
-                      <tr key={index}>
-                        <td />
-                        <td>{food.FoodName}</td>
-                        <td>{food.Calories}</td>
-                        <td>{food.Carbs}g</td>
-                        <td>{food.Fats}g</td>
-                        <td>{food.Proteins}g</td>
-                      </tr>
-                    );
-                  } else {
-                    return "";
-                  }
-                })}
                 <tr className="total" style={{ borderTop: "4px solid" }}>
                   {/* Totals calculated from the foods eaten that day */}
                   <td className="first">Totals</td>

@@ -80,5 +80,23 @@ namespace VicFit.Web.Services
             model.UserId = reader.GetString(index++);
             return model;
         }
+
+        public int Update(ProfileUpdateRequest model)
+        {
+            int id = 0;
+            _dataProvider.ExecuteNonQuery(
+                "Profile_Update",
+                inputParamMapper : delegate(SqlParameterCollection paramList)
+                {
+                    paramList.AddWithValue("@CurrentWeight", model.CurrentWeight);
+                    paramList.AddWithValue("@GoalWeight", model.GoalWeight);
+                    paramList.AddWithValue("@ProfileId", model.ProfileId);
+                },
+                returnParameters : delegate(SqlParameterCollection paramList)
+                {
+                    id = (int)paramList["@ProfileId"].Value;
+                });
+            return id;
+        }
     }
 }

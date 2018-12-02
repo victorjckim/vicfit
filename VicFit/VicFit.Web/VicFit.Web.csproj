@@ -297,6 +297,7 @@
     <Compile Include="Requests\FoodAddRequest.cs" />
     <Compile Include="Requests\MacrosAddRequest.cs" />
     <Compile Include="Requests\ProfileAddRequest.cs" />
+    <Compile Include="Requests\ProfileUpdateRequest.cs" />
     <Compile Include="Responses\BaseResponse.cs" />
     <Compile Include="Responses\ItemResponse.cs" />
     <Compile Include="Responses\ItemsResponse.cs" />

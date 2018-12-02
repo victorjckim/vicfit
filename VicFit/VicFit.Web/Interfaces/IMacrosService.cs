@@ -12,5 +12,6 @@ namespace VicFit.Web.Interfaces
     {
         int Create(string userId, int profileId);
         MacrosViewModel SelectMacrosByUserId(string userId);
+        int Update(string userId, int profileId);
     }
 }

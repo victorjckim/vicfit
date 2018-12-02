@@ -2,6 +2,8 @@ import React from "react";
 import DashboardHtml from "./DashboardHtml";
 import { connect } from "react-redux";
 import { getId, getMacros } from "../../redux/UserActions";
+import ProfileService from "../../../services/ProfileService";
+import MacrosService from "../../../services/MacrosService";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -9,23 +11,42 @@ class Dashboard extends React.Component {
     this.state = {
       macros: {
         Calories: ""
-      }
+      },
+      profile: {
+        CurrentWeight: "",
+        GoalWeight: ""
+      },
+      currentWeight: ""
     };
   }
 
   async componentDidMount() {
     if (this.props.user.userId === "") {
       await this.props.getUserId(this.props.user.userName);
-      this.setState({ macros: this.props.user.macros }, () =>
-        console.log(this.state)
+      const profile = await ProfileService.selectByUserId(
+        this.props.user.userId
+      );
+      this.setState(
+        { macros: this.props.user.macros, profile: profile.data.Item },
+        () => console.log(this.state)
       );
     } else {
       await this.props.userMacros(this.props.user.userId);
-      this.setState({ macros: this.props.user.macros }, () =>
-        console.log(this.state)
+      const profile = await ProfileService.selectByUserId(
+        this.props.user.userId
+      );
+      this.setState(
+        { macros: this.props.user.macros, profile: profile.data.Item },
+        () => console.log(this.state)
       );
     }
   }
+
+  onChange = evt => {
+    const key = evt.target.name;
+    const val = evt.target.value;
+    this.setState({ [key]: val }, () => console.log(key, val));
+  };
 
   addRequest = () => {
     this.props.history.push("/food");
@@ -35,6 +56,26 @@ class Dashboard extends React.Component {
     this.props.history.push("/exercise");
   };
 
+  updateWeight = async () => {
+    const dataObj = {
+      currentWeight: this.state.currentWeight,
+      goalWeight: this.state.profile.GoalWeight,
+      profileId: this.state.macros.ProfileId
+    };
+    await ProfileService.update(dataObj, this.props.user.userId)
+      .then(resp => console.log(resp))
+      .catch(err => console.error(err));
+    const newMacros = await MacrosService.getMacros(this.props.user.userId);
+    this.setState({
+      macros: newMacros.data.Item,
+      profile: {
+        CurrentWeight: dataObj.currentWeight,
+        GoalWeight: dataObj.goalWeight
+      },
+      currentWeight: ""
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -42,6 +83,8 @@ class Dashboard extends React.Component {
           {...this.state}
           addRequest={this.addRequest}
           exerciseRequest={this.exerciseRequest}
+          onChange={this.onChange}
+          updateWeight={this.updateWeight}
         />
       </React.Fragment>
     );

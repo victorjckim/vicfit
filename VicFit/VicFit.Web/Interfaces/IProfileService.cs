@@ -12,5 +12,6 @@ namespace VicFit.Web.Interfaces
     {
         int Create(ProfileAddRequest model);
         ProfileDomainModel SelectByUserId(string userId);
+        int Update(ProfileUpdateRequest model);
     }
 }

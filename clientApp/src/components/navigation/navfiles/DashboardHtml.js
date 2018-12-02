@@ -48,6 +48,43 @@ const DashboardHtml = props => {
               </button>
             </div>
           </div>
+          <br />
+          <div className="row">
+            <div className="col-md-3 col-lg-2 offset-lg-1 text-center">
+              <font style={{ fontSize: "18pt", color: "maroon" }}>
+                Today's Weight:
+              </font>
+            </div>
+            <div className="col-md-2 text-center">
+              <div className="input-group">
+                <input
+                  type="number"
+                  name="currentWeight"
+                  className="form-control"
+                  value={props.currentWeight}
+                  onChange={props.onChange}
+                />
+                <span className="input-group-append">
+                  <button
+                    className="btn btn-success"
+                    onClick={props.updateWeight}
+                  >
+                    OK
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div className="col-md-4 col-lg-3 offset-lg-1 text-center">
+              <font style={{ fontSize: "18pt", color: "maroon" }}>
+                Current Weight: {props.profile.CurrentWeight}
+              </font>
+            </div>
+            <div className="col-md-3 col-lg-3 text-center">
+              <font style={{ fontSize: "18pt", color: "maroon" }}>
+                Goal Weight: {props.profile.GoalWeight}
+              </font>
+            </div>
+          </div>
         </div>
       </div>
     </div>

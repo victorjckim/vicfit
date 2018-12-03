@@ -98,7 +98,7 @@ const DashboardHtml = props => {
                 return (
                   <div className="row" key={index}>
                     <div className="col-md-10 offset-md-1 text-center mt-1">
-                      <font style={{ fontSize: "18pt", color: "maroon" }}>
+                      <font style={{ fontSize: "15pt", color: "maroon" }}>
                         <a
                           href={`https://www.sciencedaily.com${article.Link}`}
                           target="_blank"

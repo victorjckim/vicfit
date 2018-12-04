@@ -38,22 +38,17 @@ namespace VicFit.Web.Services.MacroLogic
                     int fats = 0;
                     int proteins = 0;
 
-                    if (profileStats.GoalId == 1)
-                    {
+                    if (profileStats.GoalId == 1) {
                         calories -= 500;
                         proteins = (int)Math.Round(Convert.ToDouble(0.9 * (0.8 * profileStats.CurrentWeight)));
                         fats = (int)Math.Round(Convert.ToDouble(0.35 * (0.8 * profileStats.CurrentWeight)));
                         carbs = (calories - ((proteins * 4) + (fats * 9))) / 4;
-                    }
-                    else if (profileStats.GoalId == 2)
-                    {
+                    } else if (profileStats.GoalId == 2) {
                         calories += 500;
                         proteins = (int)Math.Round(Convert.ToDouble(0.7 * (0.8 * profileStats.CurrentWeight)));
                         fats = (int)Math.Round(Convert.ToDouble(0.35 * (0.8 * profileStats.CurrentWeight)));
                         carbs = (calories - ((proteins * 4) + (fats * 9))) / 4;
-                    }
-                    else
-                    {
+                    } else {
                         calories += 100;
                         proteins = (int)Math.Round(Convert.ToDouble(0.8 * (0.8 * profileStats.CurrentWeight)));
                         fats = (int)Math.Round(Convert.ToDouble(0.35 * (0.8 * profileStats.CurrentWeight)));

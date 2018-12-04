@@ -15,11 +15,8 @@ const DashboardHtml = props => {
         </div>
         <div className="card-body">
           <div className="row" style={{ margin: "12px" }}>
-            <div className="col-md-2 col-lg-2 text-center">
-              <img src="assets/img/bg/default.jpg" alt="" height={80} />
-            </div>
             <div
-              className="col-md-4 col-lg-3 mt-4 text-center"
+              className="col-md-6 mt-4 text-center"
               style={{ position: "relative", bottom: "1px" }}
             >
               <font style={{ fontSize: "18pt", color: "maroon" }}>
@@ -31,7 +28,7 @@ const DashboardHtml = props => {
                   : props.macros.Calories - props.consumedCalories}
               </font>
             </div>
-            <div className="col-md-3 offset-lg-1 mt-4">
+            <div className="col-md-3 mt-4">
               <button
                 type="button"
                 className="btn btn-outline-primary btn-block"

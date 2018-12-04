@@ -88,7 +88,6 @@ class Layout extends React.Component {
                     classNames="fade"
                   >
                     <Switch location={location}>
-                      {/* <Route exact path="/" component={Register} /> */}
                       <Route
                         exact
                         path="/"

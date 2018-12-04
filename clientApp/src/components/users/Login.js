@@ -66,7 +66,7 @@ class Login extends React.Component {
     });
   }
 
-  onClick = () => {
+  onClick = async () => {
     if (this.state.formValid) {
       this.props.loginUserRequest(this.state.email, this.state.password);
     } else {
@@ -96,9 +96,12 @@ const mapDispatchToProps = dispatch => {
     loginUserRequest: (userName, password) => {
       dispatch(loginUser(userName, password))
         .then(resp => {
-          console.log(resp);
+          return resp;
         })
-        .catch(err => console.error(err));
+        .catch(err => {
+          alert("Error: Invalid Username or Password");
+          return err;
+        });
     }
   };
 };

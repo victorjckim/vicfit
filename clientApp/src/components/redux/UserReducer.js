@@ -10,7 +10,7 @@ const UserReducer = (
     case "LOGIN_USER_FULFILLED":
       state = {
         ...state,
-        isLoggedIn: true,
+        isLoggedIn: action.payload === undefined ? false : true,
         userName: action.payload.userName
       };
       break;
@@ -24,7 +24,9 @@ const UserReducer = (
     case "LOGOUT_USER_FULFILLED":
       state = {
         ...state,
-        isLoggedIn: !action.payload
+        isLoggedIn: !action.payload,
+        userName: "",
+        userId: ""
       };
       break;
     case "GET_USER_ID_FULFILLED":

@@ -33,27 +33,16 @@ class Dashboard extends React.Component {
     } else {
       const articles = await ArticleService.getArticles();
       this.setState({ articleArr: articles.data.Items });
-      if (this.props.user.userId === "") {
-        const profile = await ProfileService.selectByUserId(
-          this.props.user.userId
-        );
-        this.setState(
-          { macros: this.props.user.macros, profile: profile.data.Item },
-          () => console.log(this.state)
-        );
-      } else {
-        await this.props.userMacros(this.props.user.userId);
-        this.setState({
-          macros: this.props.user.macros,
-          profile: profile.data.Item
-        });
-      }
-      const dailyTotal = await FoodService.selectTotalByUserId(
-        this.props.user.userId
-      );
-      if (dailyTotal.data.Item.Date === moment().format("YYYY-MM-DD")) {
-        this.setState({ consumedCalories: dailyTotal.data.Item.TotalCalories });
-      }
+      this.setState({
+        macros: this.props.user.macros,
+        profile: profile.data.Item
+      });
+    }
+    const dailyTotal = await FoodService.selectTotalByUserId(
+      this.props.user.userId
+    );
+    if (dailyTotal.data.Item.Date === moment().format("YYYY-MM-DD")) {
+      this.setState({ consumedCalories: dailyTotal.data.Item.TotalCalories });
     }
   }
 

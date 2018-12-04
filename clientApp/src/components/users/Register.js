@@ -1,6 +1,7 @@
 import React from "react";
 import RegisterHtml from "./RegisterHtml";
 import UserService from "../../services/UserService";
+import { withRouter } from "react-router-dom";
 import "./Users.css";
 
 class Register extends React.Component {
@@ -94,6 +95,7 @@ class Register extends React.Component {
       this.setState({ showErrors: false });
       UserService.register(this.state)
         .then(resp => {
+          this.props.successNote();
           console.log(resp);
           this.props.history.push("/login");
         })
@@ -105,13 +107,15 @@ class Register extends React.Component {
 
   render() {
     return (
-      <RegisterHtml
-        {...this.state}
-        onClick={this.onClick}
-        onChange={this.onChange}
-      />
+      <React.Fragment>
+        <RegisterHtml
+          {...this.state}
+          onClick={this.onClick}
+          onChange={this.onChange}
+        />
+      </React.Fragment>
     );
   }
 }
 
-export default Register;
+export default withRouter(Register);

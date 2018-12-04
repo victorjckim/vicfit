@@ -61,15 +61,14 @@ export function getMacros(userId) {
   };
 }
 
-// content type header and bearer w/ token
 export function logoutUser() {
   return {
     type: "LOGOUT_USER",
-    payload: axios
-      .post("/api/account/logout", { withCredentials: true })
-      .then(resp => {
-        return true;
-      })
-      .catch(err => console.error(err))
+    payload: new Promise((resolve, reject) => {
+      sessionStorage.removeItem("token");
+      setTimeout(() => {
+        resolve(true);
+      }, 500);
+    })
   };
 }

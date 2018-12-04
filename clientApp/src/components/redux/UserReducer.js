@@ -24,7 +24,7 @@ const UserReducer = (
     case "LOGOUT_USER_FULFILLED":
       state = {
         ...state,
-        isLoggedIn: false
+        isLoggedIn: !action.payload
       };
       break;
     case "GET_USER_ID_FULFILLED":

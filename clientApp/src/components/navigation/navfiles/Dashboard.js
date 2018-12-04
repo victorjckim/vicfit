@@ -26,6 +26,7 @@ class Dashboard extends React.Component {
   }
 
   async componentDidMount() {
+    await this.props.getUserId(this.props.user.userName);
     const profile = await ProfileService.selectByUserId(this.props.user.userId);
     if (profile.data.Item === null) {
       this.props.history.push("/profile");
@@ -33,7 +34,6 @@ class Dashboard extends React.Component {
       const articles = await ArticleService.getArticles();
       this.setState({ articleArr: articles.data.Items });
       if (this.props.user.userId === "") {
-        await this.props.getUserId(this.props.user.userName);
         const profile = await ProfileService.selectByUserId(
           this.props.user.userId
         );
@@ -60,7 +60,7 @@ class Dashboard extends React.Component {
   onChange = evt => {
     const key = evt.target.name;
     const val = evt.target.value;
-    this.setState({ [key]: val }, () => console.log(key, val));
+    this.setState({ [key]: val });
   };
 
   addRequest = () => {

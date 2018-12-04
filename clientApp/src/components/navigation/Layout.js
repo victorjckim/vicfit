@@ -8,7 +8,12 @@ import "./Layout.css";
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
 import ProfileService from "../../services/ProfileService";
-import { getId } from "../redux/UserActions";
+import { getId, logoutUser } from "../redux/UserActions";
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
+import "react-notifications/lib/notifications.css";
 
 class Layout extends React.Component {
   async componentDidUpdate() {
@@ -25,8 +30,20 @@ class Layout extends React.Component {
       } else {
         this.props.history.push("/profile");
       }
+    } else if (
+      !this.props.user.isLoggedIn &&
+      this.props.location.pathname === "/dashboard"
+    ) {
+      this.props.history.push("/login");
     }
   }
+
+  successNote = () => {
+    NotificationManager.success(
+      "Please login to continue",
+      "User registered successfully!"
+    );
+  };
 
   render() {
     return (
@@ -35,7 +52,7 @@ class Layout extends React.Component {
           <React.Fragment>
             {this.props.location.pathname !== "/profile" && (
               <React.Fragment>
-                <NavBar />
+                <NavBar logout={this.props.logout} />
                 <div
                   className="siteBackground"
                   style={{
@@ -61,23 +78,33 @@ class Layout extends React.Component {
           </React.Fragment>
         )}
         {!this.props.user.isLoggedIn && (
-          <Route
-            render={({ location }) => (
-              <TransitionGroup>
-                <CSSTransition
-                  key={location.key}
-                  timeout={400}
-                  classNames="fade"
-                >
-                  <Switch location={location}>
-                    <Route exact path="/" component={Register} />
-                    <Route path="/login" component={Login} />
-                  </Switch>
-                </CSSTransition>
-              </TransitionGroup>
-            )}
-          />
+          <React.Fragment>
+            <Route
+              render={({ location }) => (
+                <TransitionGroup>
+                  <CSSTransition
+                    key={location.key}
+                    timeout={400}
+                    classNames="fade"
+                  >
+                    <Switch location={location}>
+                      {/* <Route exact path="/" component={Register} /> */}
+                      <Route
+                        exact
+                        path="/"
+                        render={props => (
+                          <Register successNote={this.successNote} />
+                        )}
+                      />
+                      <Route path="/login" component={Login} />
+                    </Switch>
+                  </CSSTransition>
+                </TransitionGroup>
+              )}
+            />
+          </React.Fragment>
         )}
+        <NotificationContainer />
       </React.Fragment>
     );
   }
@@ -93,6 +120,11 @@ const mapDispatchToProps = dispatch => {
   return {
     getUserId: async email => {
       await dispatch(getId(email))
+        .then(resp => console.log(resp))
+        .catch(err => console.error(err));
+    },
+    logout: async () => {
+      await dispatch(logoutUser())
         .then(resp => console.log(resp))
         .catch(err => console.error(err));
     }

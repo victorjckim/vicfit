@@ -23,3 +23,7 @@
 .table-responsive {
   max-height: 656px;
 }
+
+.logout {
+  cursor: pointer;
+}

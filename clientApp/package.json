@@ -13,6 +13,7 @@
     "react-avatar-edit": "^0.6.0",
     "react-bootstrap-sweetalert": "^4.4.1",
     "react-dom": "^16.6.1",
+    "react-notifications": "^1.4.3",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",

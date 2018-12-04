@@ -7,14 +7,24 @@ import Router from "../navigation/Router";
 import "./Layout.css";
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
+import ProfileService from "../../services/ProfileService";
+import { getId } from "../redux/UserActions";
 
 class Layout extends React.Component {
-  componentDidUpdate() {
+  async componentDidUpdate() {
     if (
       this.props.user.isLoggedIn &&
       this.props.location.pathname === "/login"
     ) {
-      this.props.history.push("/profile");
+      await this.props.getUserId(this.props.user.userName);
+      const profile = await ProfileService.selectByUserId(
+        this.props.user.userId
+      );
+      if (profile.data.Item !== null) {
+        this.props.history.push("/dashboard");
+      } else {
+        this.props.history.push("/profile");
+      }
     }
   }
 
@@ -23,15 +33,31 @@ class Layout extends React.Component {
       <React.Fragment>
         {this.props.user.isLoggedIn && (
           <React.Fragment>
-            <NavBar />
-            <div
-              className="profileBackground"
-              style={{
-                backgroundImage: "url(assets/img/bg/shoes.jpg)"
-              }}
-            >
-              <Router />
-            </div>
+            {this.props.location.pathname !== "/profile" && (
+              <React.Fragment>
+                <NavBar />
+                <div
+                  className="siteBackground"
+                  style={{
+                    backgroundImage: "url(assets/img/bg/shoes.jpg)"
+                  }}
+                >
+                  <Router />
+                </div>
+              </React.Fragment>
+            )}
+            {this.props.location.pathname === "/profile" && (
+              <React.Fragment>
+                <div
+                  className="profileBackground"
+                  style={{
+                    backgroundImage: "url(assets/img/bg/shoes.jpg)"
+                  }}
+                >
+                  <Router />
+                </div>
+              </React.Fragment>
+            )}
           </React.Fragment>
         )}
         {!this.props.user.isLoggedIn && (
@@ -63,4 +89,19 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(Layout));
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserId: async email => {
+      await dispatch(getId(email))
+        .then(resp => console.log(resp))
+        .catch(err => console.error(err));
+    }
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Layout)
+);

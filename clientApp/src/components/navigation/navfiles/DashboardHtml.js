@@ -26,7 +26,9 @@ const DashboardHtml = props => {
                 Calories Left:{" "}
                 {props.macros.Calories === ""
                   ? "Waiting..."
-                  : props.macros.Calories}
+                  : props.consumedCalories === ""
+                  ? props.macros.Calories
+                  : props.macros.Calories - props.consumedCalories}
               </font>
             </div>
             <div className="col-md-3 offset-lg-1 mt-4">

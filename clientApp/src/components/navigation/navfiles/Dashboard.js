@@ -5,6 +5,8 @@ import { getId, getMacros } from "../../redux/UserActions";
 import ProfileService from "../../../services/ProfileService";
 import MacrosService from "../../../services/MacrosService";
 import ArticleService from "../../../services/ArticleService";
+import FoodService from "../../../services/FoodService";
+import moment from "moment";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -18,31 +20,40 @@ class Dashboard extends React.Component {
         GoalWeight: ""
       },
       currentWeight: "",
-      articleArr: []
+      articleArr: [],
+      consumedCalories: ""
     };
   }
 
   async componentDidMount() {
-    const articles = await ArticleService.getArticles();
-    this.setState({ articleArr: articles.data.Items });
-    if (this.props.user.userId === "") {
-      await this.props.getUserId(this.props.user.userName);
-      const profile = await ProfileService.selectByUserId(
-        this.props.user.userId
-      );
-      this.setState(
-        { macros: this.props.user.macros, profile: profile.data.Item },
-        () => console.log(this.state)
-      );
+    const profile = await ProfileService.selectByUserId(this.props.user.userId);
+    if (profile.data.Item === null) {
+      this.props.history.push("/profile");
     } else {
-      await this.props.userMacros(this.props.user.userId);
-      const profile = await ProfileService.selectByUserId(
+      const articles = await ArticleService.getArticles();
+      this.setState({ articleArr: articles.data.Items });
+      if (this.props.user.userId === "") {
+        await this.props.getUserId(this.props.user.userName);
+        const profile = await ProfileService.selectByUserId(
+          this.props.user.userId
+        );
+        this.setState(
+          { macros: this.props.user.macros, profile: profile.data.Item },
+          () => console.log(this.state)
+        );
+      } else {
+        await this.props.userMacros(this.props.user.userId);
+        this.setState({
+          macros: this.props.user.macros,
+          profile: profile.data.Item
+        });
+      }
+      const dailyTotal = await FoodService.selectTotalByUserId(
         this.props.user.userId
       );
-      this.setState(
-        { macros: this.props.user.macros, profile: profile.data.Item },
-        () => console.log(this.state)
-      );
+      if (dailyTotal.data.Item.Date === moment().format("YYYY-MM-DD")) {
+        this.setState({ consumedCalories: dailyTotal.data.Item.TotalCalories });
+      }
     }
   }
 

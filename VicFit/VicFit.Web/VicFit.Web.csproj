@@ -287,6 +287,7 @@
     <Compile Include="Interfaces\IDataProvider.cs" />
     <Compile Include="Interfaces\IFoodService.cs" />
     <Compile Include="Interfaces\IMacrosService.cs" />
+    <Compile Include="Interfaces\IMacroStrategy.cs" />
     <Compile Include="Interfaces\IProfileService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -311,6 +312,8 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Services\FoodService.cs" />
+    <Compile Include="Services\MacroLogic\FemaleMacros.cs" />
+    <Compile Include="Services\MacroLogic\MaleMacros.cs" />
     <Compile Include="Services\MacrosService.cs" />
     <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Services\UserService.cs" />

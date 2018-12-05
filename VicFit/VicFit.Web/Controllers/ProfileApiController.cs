@@ -74,5 +74,23 @@ namespace VicFit.Web.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
+
+        [HttpPut]
+        [Route("goal/{userId}")]
+        public HttpResponseMessage UpdateGoal(ProfileUpdateGoalRequest model, string userId)
+        {
+            try
+            {
+                int id = _profileService.UpdateGoal(model);
+                int idTwo = _macrosService.Update(userId, id);
+                ItemResponse<int> resp = new ItemResponse<int>();
+                resp.Item = idTwo;
+                return Request.CreateResponse(HttpStatusCode.OK, resp);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
     }
 }

@@ -43,6 +43,15 @@ class Profile extends React.Component {
     this.props.getUserId(this.props.user.userName);
   }
 
+  async componentDidUpdate() {
+    const profile = await ProfileService.selectByUserId(this.props.user.userId);
+    if (profile.data.itemId !== undefined) {
+      this.props.history.push("/dashboard");
+    } else {
+      console.log("profile null");
+    }
+  }
+
   onChange = evt => {
     const key = evt.target.name;
     const val = evt.target.value;

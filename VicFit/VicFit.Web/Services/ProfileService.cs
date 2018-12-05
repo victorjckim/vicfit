@@ -98,5 +98,22 @@ namespace VicFit.Web.Services
                 });
             return id;
         }
+
+        public int UpdateGoal(ProfileUpdateGoalRequest model)
+        {
+            int id = 0;
+            _dataProvider.ExecuteNonQuery(
+                "Profile_UpdateGoal",
+                inputParamMapper: delegate (SqlParameterCollection paramList)
+                {
+                    paramList.AddWithValue("@GoalId", model.GoalId);
+                    paramList.AddWithValue("@ProfileId", model.ProfileId);
+                },
+                returnParameters: delegate (SqlParameterCollection paramList)
+                {
+                    id = (int)paramList["@ProfileId"].Value;
+                });
+            return id;
+        }
     }
 }

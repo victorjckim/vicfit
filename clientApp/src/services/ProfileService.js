@@ -29,6 +29,16 @@ class ProfileService {
     axios.defaults.withCredentials = true;
     return axios(url, config);
   }
+
+  static updateGoal(data, userId) {
+    const url = `/api/profile/goal/${userId}`;
+    const config = {
+      method: "PUT",
+      data: data
+    };
+    axios.defaults.withCredentials = true;
+    return axios(url, config);
+  }
 }
 
 export default ProfileService;

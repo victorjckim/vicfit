@@ -49,6 +49,8 @@ C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\roslyn\vbc.rsp
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\roslyn\VBCSCompiler.exe
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\roslyn\VBCSCompiler.exe.config
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\Antlr3.Runtime.dll
+C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\AWSSDK.Core.dll
+C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\AWSSDK.S3.dll
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\CommonServiceLocator.dll
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\EntityFramework.dll
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\EntityFramework.SqlServer.dll
@@ -101,6 +103,10 @@ C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\Unity.ServiceLocation.dll
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\Unity.WebApi.dll
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\WebActivatorEx.dll
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\WebGrease.dll
+C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\AWSSDK.Core.pdb
+C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\AWSSDK.Core.xml
+C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\AWSSDK.S3.pdb
+C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\AWSSDK.S3.xml
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\CommonServiceLocator.pdb
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\HtmlAgilityPack.pdb
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\HtmlAgilityPack.xml
@@ -144,7 +150,6 @@ C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\Microsoft.AI.DependencyCol
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\Microsoft.AI.WindowsServer.xml
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\Microsoft.AI.Web.xml
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\obj\Debug\VicFit.Web.csprojAssemblyReference.cache
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\obj\Debug\VicFit.Web.csproj.CoreCompileInputs.cache
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\obj\Debug\VicFit.Web.csproj.CopyComplete
 C:\SF.Code\C61\personal_project\vicfit\VicFit.Web\obj\Debug\VicFit.Web.dll

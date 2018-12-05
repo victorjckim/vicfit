@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import "./App.css";
 import Layout from "./components/navigation/Layout";
 import { connect } from "react-redux";
-import { loginStatus, getId } from "../src/components/redux/UserActions";
+import {
+  loginStatus,
+  getId,
+  getMacros
+} from "../src/components/redux/UserActions";
 import { withRouter } from "react-router-dom";
 
 class App extends Component {
@@ -33,7 +37,12 @@ const mapDispatchToProps = dispatch => {
         .then(
           async resp =>
             await dispatch(getId(resp.value.Email))
-              .then(resp => console.log(resp))
+              .then(
+                async resp =>
+                  await dispatch(getMacros(resp.value.data.Item))
+                    .then(resp => console.log(resp))
+                    .catch(err => console.error(err))
+              )
               .catch(err => console.error(err))
         )
         .catch(err => console.error(err));

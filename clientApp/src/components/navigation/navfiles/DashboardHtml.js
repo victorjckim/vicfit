@@ -1,7 +1,6 @@
 import React from "react";
 
 const DashboardHtml = props => {
-  console.log(props);
   return (
     <div className="col-lg-8 offset-lg-2">
       <div

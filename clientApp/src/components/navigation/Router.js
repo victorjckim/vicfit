@@ -5,6 +5,7 @@ import Food from "../diary/Food";
 import Exercise from "../diary/Exercise";
 import Dashboard from "./navfiles/Dashboard";
 import SearchFood from "../diary/SearchFood";
+import Information from "./navfiles/Information";
 
 const Router = props => {
   return (
@@ -15,6 +16,7 @@ const Router = props => {
         <Route path="/food" component={Food} />
         <Route path="/search" component={SearchFood} />
         <Route path="/exercise" component={Exercise} />
+        <Route path="/info" component={Information} />
       </div>
     </React.Fragment>
   );

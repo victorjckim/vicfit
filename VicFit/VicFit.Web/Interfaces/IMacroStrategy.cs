@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VicFit.Web.Models;
 
 namespace VicFit.Web.Interfaces
 {
     public interface IMacroStrategy
     {
-        int calcMacros(string userId, int profileId);
+        MacrosViewModel calcMacros(string userId, int profileId);
     }
 }

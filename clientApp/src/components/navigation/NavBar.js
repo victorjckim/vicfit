@@ -23,6 +23,7 @@ const NavBar = props => {
             <NavLink path="/dashboard" label="Dashboard" />
             <NavLink path="/food" label="Food" />
             <NavLink path="/exercise" label="Exercise" />
+            <NavLink path="/info" label="Profile" />
             <li className="nav-item logout" onClick={props.logout}>
               <div className="nav-link">
                 <div>Logout</div>

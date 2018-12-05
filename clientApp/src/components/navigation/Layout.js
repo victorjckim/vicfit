@@ -31,8 +31,9 @@ class Layout extends React.Component {
         this.props.history.push("/profile");
       }
     } else if (
-      !this.props.user.isLoggedIn &&
-      this.props.location.pathname === "/dashboard"
+      (!this.props.user.isLoggedIn &&
+        this.props.location.pathname === "/dashboard") ||
+      (!this.props.user.isLoggedIn && this.props.location.pathname === "/info")
     ) {
       this.props.history.push("/login");
     }

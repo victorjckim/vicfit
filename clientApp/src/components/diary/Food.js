@@ -23,8 +23,7 @@ class Food extends React.Component {
         Fats: "",
         Proteins: ""
       },
-      todaysFoodArr: [],
-      waiting: true
+      todaysFoodArr: []
     };
   }
 

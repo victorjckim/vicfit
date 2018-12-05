@@ -302,6 +302,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArticleDomainModel.cs" />
     <Compile Include="Models\DailyTotalViewModel.cs" />
+    <Compile Include="Models\FileStorageViewModel.cs" />
     <Compile Include="Models\FoodViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MacrosViewModel.cs" />
@@ -310,6 +311,7 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Providers\SqlDataProvider.cs" />
     <Compile Include="Requests\FileStorageAddRequest.cs" />
+    <Compile Include="Requests\FileStorageUpdateRequest.cs" />
     <Compile Include="Requests\FoodAddRequest.cs" />
     <Compile Include="Requests\MacrosAddRequest.cs" />
     <Compile Include="Requests\ProfileAddRequest.cs" />

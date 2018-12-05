@@ -18,9 +18,21 @@ const InformationHtml = props => {
           <div className="card-header text-center">
             <font style={{ fontSize: "22pt", font: "helvetica" }}>Profile</font>
           </div>
-          <div className="card-body col-md-12 media ">
+          <div className="card-body col-md-12 media">
             <div className="col-md-4 col-lg-4 offset-lg-1">
-              <img src="assets/img/bg/default.jpg" alt="" />
+              <img
+                src={
+                  props.image === ""
+                    ? ""
+                    : props.image.Id === 0
+                    ? "assets/img/bg/default.jpg"
+                    : `https://sabio-training.s3.us-west-2.amazonaws.com/${
+                        props.image.BasePath
+                      }/${props.image.SystemFileName}`
+                }
+                alt=""
+                style={{ width: "250px", height: "250px" }}
+              />
             </div>
             <div className="col-md-8 col-lg-8">
               <div className="form-group">
@@ -49,6 +61,14 @@ const InformationHtml = props => {
                   onClick={props.updateGoal}
                 >
                   Save
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary"
+                  data-toggle="modal"
+                  data-target="#imageEditor"
+                >
+                  Edit Image
                 </button>
               </div>
             </div>

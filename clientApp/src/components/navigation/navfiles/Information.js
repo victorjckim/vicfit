@@ -27,9 +27,16 @@ class Information extends React.Component {
       { value: 2, label: "Gain muscle" },
       { value: 3, label: "I'm a beginner, so give me both!" }
     ];
+    if (this.state.image === "") {
+      const image = await FileStorageService.selectByUserId(
+        sessionStorage.getItem("userId")
+      );
+      this.setState({ image: image.data.Item });
+      console.log(image);
+    }
     if (this.state.goalId === "") {
       const profile = await ProfileService.selectByUserId(
-        this.props.user.userId
+        sessionStorage.getItem("userId")
       );
       this.setState(
         {
@@ -38,13 +45,6 @@ class Information extends React.Component {
         },
         () => console.log(this.state)
       );
-    }
-    if (this.state.image === "") {
-      const image = await FileStorageService.selectByUserId(
-        this.props.user.userId
-      );
-      this.setState({ image: image.data.Item });
-      console.log(image);
     }
   }
 
@@ -57,7 +57,7 @@ class Information extends React.Component {
     ];
     if (this.state.goalId === "") {
       const profile = await ProfileService.selectByUserId(
-        this.props.user.userId
+        sessionStorage.getItem("userId")
       );
       this.setState(
         {
@@ -69,7 +69,7 @@ class Information extends React.Component {
     }
     if (this.state.image === "") {
       const image = await FileStorageService.selectByUserId(
-        this.props.user.userId
+        sessionStorage.getItem("userId")
       );
       this.setState({ image: image.data.Item });
       console.log(image);
@@ -88,7 +88,7 @@ class Information extends React.Component {
       goalId: this.state.goalId,
       profileId: this.props.user.macros.ProfileId
     };
-    await ProfileService.updateGoal(dataObj, this.props.user.userId)
+    await ProfileService.updateGoal(dataObj, sessionStorage.getItem("userId"))
       .then(resp => {
         console.log(resp);
         NotificationManager.success("", "Profile Saved");
@@ -117,11 +117,11 @@ class Information extends React.Component {
         } else {
           await FileStorageService.insertFileStorage(
             data,
-            this.props.user.userId
+            sessionStorage.getItem("userId")
           );
         }
         const image = await FileStorageService.selectByUserId(
-          this.props.user.userId
+          sessionStorage.getItem("userId")
         );
         this.setState({ image: image.data.Item });
         this.closeLoadingModal();

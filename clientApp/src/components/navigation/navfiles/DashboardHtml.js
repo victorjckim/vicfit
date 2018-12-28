@@ -20,11 +20,11 @@ const DashboardHtml = props => {
             >
               <font style={{ fontSize: "18pt", color: "maroon" }}>
                 Calories Left:{" "}
-                {props.macros.Calories === ""
+                {props.caloriesReady === false
                   ? "Waiting..."
-                  : props.consumedCalories === ""
-                  ? props.macros.Calories
-                  : props.macros.Calories - props.consumedCalories}
+                  : props.macros.Calories -
+                    props.consumedCalories +
+                    props.caloriesBurned}
               </font>
             </div>
             <div className="col-md-3 mt-4">

@@ -8,7 +8,7 @@ import "./Layout.css";
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
 import ProfileService from "../../services/ProfileService";
-import { getId, logoutUser } from "../redux/UserActions";
+import { logoutUser, getId } from "../redux/UserActions";
 import {
   NotificationContainer,
   NotificationManager
@@ -23,19 +23,31 @@ class Layout extends React.Component {
     ) {
       await this.props.getUserId(this.props.user.userName);
       const profile = await ProfileService.selectByUserId(
-        this.props.user.userId
+        sessionStorage.getItem("userId")
       );
-      if (profile.data.Item !== null) {
-        this.props.history.push("/dashboard");
-      } else {
+      if (profile.data.Item === null) {
         this.props.history.push("/profile");
+      } else {
+        this.props.history.push("/dashboard");
       }
     } else if (
       (!this.props.user.isLoggedIn &&
         this.props.location.pathname === "/dashboard") ||
-      (!this.props.user.isLoggedIn && this.props.location.pathname === "/info")
+      (!this.props.user.isLoggedIn &&
+        this.props.location.pathname === "/info") ||
+      (!this.props.user.isLoggedIn &&
+        this.props.location.pathname === "/exercise") ||
+      (!this.props.user.isLoggedIn &&
+        this.props.location.pathname === "/food") ||
+      (!this.props.user.isLoggedIn &&
+        this.props.location.pathname === "/search")
     ) {
       this.props.history.push("/login");
+    } else if (
+      this.props.user.isLoggedIn &&
+      this.props.location.pathname === "/"
+    ) {
+      this.props.history.push("/dashboard");
     }
   }
 
@@ -118,13 +130,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserId: async email => {
-      await dispatch(getId(email))
+    logout: async () => {
+      await dispatch(logoutUser())
         .then(resp => console.log(resp))
         .catch(err => console.error(err));
     },
-    logout: async () => {
-      await dispatch(logoutUser())
+    getUserId: async userName => {
+      await dispatch(getId(userName))
         .then(resp => console.log(resp))
         .catch(err => console.error(err));
     }

@@ -2,8 +2,6 @@ import React from "react";
 import ProfileForm from "./ProfileForm";
 import ProfileService from "../../../services/ProfileService";
 import MacrosService from "../../../services/MacrosService";
-import { connect } from "react-redux";
-import { getId } from "../../redux/UserActions";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -39,13 +37,25 @@ class Profile extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.props.getUserId(this.props.user.userName);
+  async componentDidMount() {
+    const profile = await ProfileService.selectByUserId(
+      sessionStorage.getItem("userId")
+    );
+    console.log(profile);
+
+    if (profile.data.Item !== null) {
+      this.props.history.push("/dashboard");
+    } else {
+      console.log("profile null");
+    }
   }
 
   async componentDidUpdate() {
-    const profile = await ProfileService.selectByUserId(this.props.user.userId);
-    if (profile.data.itemId !== undefined) {
+    const profile = await ProfileService.selectByUserId(
+      sessionStorage.getItem("userId")
+    );
+    console.log(profile);
+    if (profile.data.Item !== null) {
       this.props.history.push("/dashboard");
     } else {
       console.log("profile null");
@@ -189,12 +199,15 @@ class Profile extends React.Component {
         gender: gender,
         goalId: goal,
         activity: parseFloat(active),
-        userId: this.props.user.userId
+        userId: sessionStorage.getItem("userId")
       };
       await ProfileService.create(profileData)
         .then(
           async resp =>
-            await MacrosService.create(this.props.user.userId, resp.data.Item)
+            await MacrosService.create(
+              sessionStorage.getItem("userId"),
+              resp.data.Item
+            )
         )
         .catch(err => console.error(err));
       this.setState({ showErrors: false }, () =>
@@ -236,23 +249,4 @@ class Profile extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.UserReducer
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getUserId: email => {
-      dispatch(getId(email))
-        .then(resp => console.log(resp))
-        .catch(err => console.error(err));
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Profile);
+export default Profile;

@@ -77,7 +77,7 @@ const RegisterHtml = props => {
                     value={props.password}
                     onChange={props.onChange}
                     isValid={props.passwordValid || !props.showErrors}
-                    hintText="Password must be a minimum of 6 characters"
+                    hintText="Password must be a minimum of 6 characters with at least one uppercase letter, one lowercase letter, one number, and one special character"
                   />
                   <TextInput
                     name="confirmPassword"

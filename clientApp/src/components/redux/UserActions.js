@@ -43,6 +43,7 @@ export function getId(email) {
     payload: axios
       .get(`/api/users/getid?email=${email}`, { withCredentials: true })
       .then(resp => {
+        sessionStorage.setItem("userId", resp.data.Item);
         return resp;
       })
       .catch(err => console.error(err))
@@ -66,6 +67,7 @@ export function logoutUser() {
     type: "LOGOUT_USER",
     payload: new Promise((resolve, reject) => {
       sessionStorage.removeItem("token");
+      sessionStorage.removeItem("userId");
       setTimeout(() => {
         resolve(true);
       }, 500);

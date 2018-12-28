@@ -1,11 +1,12 @@
 import React from "react";
 import DashboardHtml from "./DashboardHtml";
 import { connect } from "react-redux";
-import { getId, getMacros } from "../../redux/UserActions";
+import { getMacros } from "../../redux/UserActions";
 import ProfileService from "../../../services/ProfileService";
 import MacrosService from "../../../services/MacrosService";
 import ArticleService from "../../../services/ArticleService";
 import FoodService from "../../../services/FoodService";
+import ExerciseService from "../../../services/ExerciseService";
 import moment from "moment";
 
 class Dashboard extends React.Component {
@@ -21,29 +22,40 @@ class Dashboard extends React.Component {
       },
       currentWeight: "",
       articleArr: [],
-      consumedCalories: ""
+      consumedCalories: "",
+      caloriesBurned: "",
+      caloriesReady: false
     };
   }
 
   async componentDidMount() {
-    await this.props.getUserId(this.props.user.userName);
-    const profile = await ProfileService.selectByUserId(this.props.user.userId);
+    this.props.userMacros(sessionStorage.getItem("userId"));
+    const profile = await ProfileService.selectByUserId(
+      sessionStorage.getItem("userId")
+    );
     if (profile.data.Item === null) {
       this.props.history.push("/profile");
     } else {
       const articles = await ArticleService.getArticles();
-      this.setState({ articleArr: articles.data.Items });
       this.setState({
+        articleArr: articles.data.Items,
         macros: this.props.user.macros,
         profile: profile.data.Item
       });
     }
     const dailyTotal = await FoodService.selectTotalByUserId(
-      this.props.user.userId
+      sessionStorage.getItem("userId")
     );
     if (dailyTotal.data.Item.Date === moment().format("YYYY-MM-DD")) {
       this.setState({ consumedCalories: dailyTotal.data.Item.TotalCalories });
     }
+    const exerciseTotal = await ExerciseService.selectTotalByUserId(
+      sessionStorage.getItem("userId")
+    );
+    this.setState({
+      caloriesReady: true,
+      caloriesBurned: exerciseTotal.data.Item.CaloriesBurned
+    });
   }
 
   onChange = evt => {
@@ -66,10 +78,12 @@ class Dashboard extends React.Component {
       goalWeight: this.state.profile.GoalWeight,
       profileId: this.state.macros.ProfileId
     };
-    await ProfileService.update(dataObj, this.props.user.userId)
+    await ProfileService.update(dataObj, sessionStorage.getItem("userId"))
       .then(resp => console.log(resp))
       .catch(err => console.error(err));
-    const newMacros = await MacrosService.getMacros(this.props.user.userId);
+    const newMacros = await MacrosService.getMacros(
+      sessionStorage.getItem("userId")
+    );
     this.setState({
       macros: newMacros.data.Item,
       profile: {
@@ -103,15 +117,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserId: async email => {
-      await dispatch(getId(email))
-        .then(async resp => {
-          await dispatch(getMacros(resp.value.data.Item))
-            .then(resp => console.log(resp))
-            .catch(err => console.error(err));
-        })
-        .catch(err => console.error(err));
-    },
     userMacros: async userId => {
       await dispatch(getMacros(userId))
         .then(resp => console.log(resp))

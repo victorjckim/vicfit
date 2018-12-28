@@ -39,6 +39,7 @@ namespace VicFit.Web
             container.RegisterType<IFoodService, FoodService>();
             container.RegisterType<IArticleService, ArticleService>();
             container.RegisterType<IFileStorageService, FileStorageService>();
+            container.RegisterType<IExerciseService, ExerciseService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 

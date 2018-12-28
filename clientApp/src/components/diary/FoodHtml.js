@@ -302,7 +302,7 @@ const FoodHtml = props => {
                   {/* Daily Goal will come from the database */}
                   <td className="first">Daily Goal</td>
                   <td />
-                  <td>{props.macros.Calories}</td>
+                  <td>{props.macros.Calories + props.caloriesBurned}</td>
                   <td>{props.macros.Carbs}g</td>
                   <td>{props.macros.Fats}g</td>
                   <td>{props.macros.Proteins}g</td>
@@ -315,7 +315,9 @@ const FoodHtml = props => {
                   {props.total.Date === moment().format("YYYY-MM-DD") ? (
                     <React.Fragment>
                       <td>
-                        {props.macros.Calories - props.total.TotalCalories}
+                        {props.macros.Calories -
+                          props.total.TotalCalories +
+                          props.caloriesBurned}
                       </td>
                       <td>{props.macros.Carbs - props.total.TotalCarbs}g</td>
                       <td>{props.macros.Fats - props.total.TotalFats}g</td>
@@ -325,7 +327,7 @@ const FoodHtml = props => {
                     </React.Fragment>
                   ) : (
                     <React.Fragment>
-                      <td>{props.macros.Calories}</td>
+                      <td>{props.macros.Calories + props.caloriesBurned}</td>
                       <td>{props.macros.Carbs}g</td>
                       <td>{props.macros.Fats}g</td>
                       <td>{props.macros.Proteins}g</td>

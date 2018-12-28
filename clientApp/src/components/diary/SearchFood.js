@@ -1,7 +1,6 @@
 import React from "react";
 import NutritionService from "../../services/NutritionService";
 import SearchFoodHtml from "./SearchFoodHtml";
-import { connect } from "react-redux";
 import FoodService from "../../services/FoodService";
 import moment from "moment";
 
@@ -54,7 +53,7 @@ class SearchFood extends React.Component {
       fats: resp.nf_total_fat,
       proteins: resp.nf_protein,
       date: moment().format("YYYY-MM-DD"),
-      userId: this.props.user.userId
+      userId: sessionStorage.getItem("userId")
     };
     this.setState({ confirmAdd: true, nutrientObj: respObj }, () =>
       console.log(this.state.nutrientObj)
@@ -88,10 +87,4 @@ class SearchFood extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.UserReducer
-  };
-};
-
-export default connect(mapStateToProps)(SearchFood);
+export default SearchFood;

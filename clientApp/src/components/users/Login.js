@@ -1,7 +1,7 @@
 import React from "react";
 import LoginHtml from "./LoginHtml";
 import { connect } from "react-redux";
-import { loginUser } from "../redux/UserActions";
+import { loginUser, getId } from "../redux/UserActions";
 import { withRouter } from "react-router-dom";
 
 class Login extends React.Component {
@@ -96,6 +96,7 @@ const mapDispatchToProps = dispatch => {
     loginUserRequest: (userName, password) => {
       dispatch(loginUser(userName, password))
         .then(resp => {
+          dispatch(getId(userName));
           return resp;
         })
         .catch(err => {
